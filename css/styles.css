@@ -1,0 +1,159 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f4fc;
+}
+
+/* Top Bar Section */
+.top-bar {
+    background-color: #4e148c;
+    color: #fff;
+    display: flex;
+    justify-content: flex-end; /* Aligns the login button to the right */
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.top-bar .login-btn {
+    background-color: #ff4081;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.top-bar .login-btn:hover {
+    background-color: #ff80ab;
+}
+
+/* Logo Section */
+.logo-bar {
+    background-color: #6a1b9a;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.logo-bar h1 {
+    margin: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+/* Navigation Bar */
+.main-nav {
+    background-color: #4e148c;
+    padding: 10px 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-nav ul li {
+    margin: 0 15px;
+}
+
+.main-nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+    color: #ff4081;
+}
+
+/* Main Section */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 50%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Event Grid */
+.event-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.event-card {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.event-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.event-card h3 {
+    font-size: 18px;
+    color: #4e148c;
+    margin: 10px 0;
+}
+
+.event-card p {
+    font-size: 14px;
+    color: #757575;
+    margin: 10px 0;
+}
+
+.event-card .price {
+    font-size: 16px;
+    color: #ff4081;
+    font-weight: bold;
+    display: block;
+    margin: 10px 0;
+}
+
+.event-card button {
+    padding: 10px 15px;
+    background-color: #4e148c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.event-card button:hover {
+    background-color: #6a1b9a;
+}
+
+/* Footer */
+footer {
+    background-color: #4e148c;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
