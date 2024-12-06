@@ -15,10 +15,10 @@ body {
     background-color: #4e148c;
     color: #fff;
     display: flex;
-    justify-content: flex-end; /* Aligns the login button to the right */
+    justify-content: flex-end;
     align-items: center;
     padding: 10px 20px;
-    font-size: 14px;
+    gap: 10px;
 }
 
 .top-bar .login-btn {
@@ -78,10 +78,45 @@ body {
     color: #ff4081;
 }
 
-/* Main Section */
-main {
+/* Main Heading Section */
+.main-heading {
+    display: flex; /* Enables flexbox */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    position: relative; /* Allows absolute positioning of the button */
     padding: 20px;
-    text-align: center;
+}
+
+.main-heading h2 {
+    font-size: 24px;
+    color: #4e148c;
+    margin: 0;
+    text-align: center; /* Ensures the text is centered within its own space */
+    flex: 1; /* Allows the heading to take up available space */
+}
+
+.main-heading .new-event-btn {
+    background-color: #4caf50; /* Green background */
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    position: absolute; /* Allows independent placement of the button */
+    right: 20px; /* Places the button on the right of the container */
+}
+
+.main-heading .new-event-btn:hover {
+    background-color: #81c784; /* Lighter green */
+}
+
+
+/* Center Search Bar */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
 }
 
 .search-bar input {

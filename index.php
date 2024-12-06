@@ -32,7 +32,11 @@
 
     <!-- Main Content -->
     <main>
-        <h2>Discover Fun-Filled Events for Children!</h2>
+        <div class="main-heading">
+            <h2>Discover Fun-Filled Events for Children!</h2>
+            <a href="new_event.php" class="new-event-btn">Jauns Pasākums</a>
+        </div>
+
         <div class="search-bar">
             <input type="text" placeholder="Search for events...">
         </div>
