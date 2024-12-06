@@ -1,0 +1,115 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #f8f4fc; /* Light purple background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full-screen height for centering */
+}
+
+/* Signup Container */
+.signup-container {
+    width: 100%;
+    max-width: 400px;
+    background-color: #fff; /* White background for form */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 30px;
+    text-align: center; /* Center all text inside the container */
+}
+
+.signup-container h1 {
+    font-size: 24px;
+    color: #4e148c; /* Purple text color */
+    margin-bottom: 10px;
+}
+
+.signup-container hr {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 10px 0 20px;
+}
+
+/* Form Styling */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between form elements */
+}
+
+.signup-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4e148c; /* Purple text color */
+    text-align: left;
+    width: 100%; /* Align labels with inputs */
+}
+
+.signup-form input {
+    width: 100%; /* Full width inside the container */
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.signup-form input:focus {
+    border-color: #4e148c; /* Highlight on focus */
+}
+
+/* Submit Button */
+.signupbtn {
+    margin-top: 20px;
+}
+
+.signupbtn button {
+    width: 100%; /* Full width */
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #4caf50; /* Green button */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.signupbtn button:hover {
+    background-color: #81c784; /* Lighter green on hover */
+}
+
+/* Notification Section */
+.notification {
+    margin-top: 20px;
+    font-size: 14px;
+    color: red;
+}
+
+/* Success Message */
+.success-message {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    background-color: #4caf50; /* Green background */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    position: fixed;
+    top: 10%; /* Position at the top center */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    transition: opacity 1s ease; /* Smooth fade-out transition */
+}

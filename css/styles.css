@@ -21,7 +21,7 @@ body {
     gap: 10px;
 }
 
-.top-bar .login-btn {
+.top-bar .login-btn, .logout-btn {
     background-color: #ff4081;
     padding: 8px 15px;
     border-radius: 5px;
@@ -31,7 +31,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.top-bar .login-btn:hover {
+.logout-btn:hover, .login-btn:hover {
     background-color: #ff80ab;
 }
 
@@ -80,10 +80,10 @@ body {
 
 /* Main Heading Section */
 .main-heading {
-    display: flex; /* Enables flexbox */
-    justify-content: center; /* Centers content horizontally */
-    align-items: center; /* Centers content vertically */
-    position: relative; /* Allows absolute positioning of the button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
     padding: 20px;
 }
 
@@ -91,26 +91,24 @@ body {
     font-size: 24px;
     color: #4e148c;
     margin: 0;
-    text-align: center; /* Ensures the text is centered within its own space */
-    flex: 1; /* Allows the heading to take up available space */
+    flex: 1;
 }
 
 .main-heading .new-event-btn {
-    background-color: #4caf50; /* Green background */
+    background-color: #4caf50;
     padding: 10px 15px;
     border-radius: 5px;
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s ease;
-    position: absolute; /* Allows independent placement of the button */
-    right: 20px; /* Places the button on the right of the container */
+    position: absolute;
+    right: 20px;
 }
 
 .main-heading .new-event-btn:hover {
-    background-color: #81c784; /* Lighter green */
+    background-color: #81c784;
 }
-
 
 /* Center Search Bar */
 .search-bar {
