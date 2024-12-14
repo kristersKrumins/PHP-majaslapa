@@ -21,19 +21,57 @@ body {
     gap: 10px;
 }
 
-.top-bar .login-btn, .logout-btn {
+.top-bar .user-info {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-end; /* Align to the right */
+    gap: 5px; /* Add spacing between elements */
+}
+
+.top-bar .user-info span {
+    font-weight: bold;
+    color: #fff;
+}
+
+.logout-btn {
     background-color: #ff4081;
-    padding: 8px 15px;
-    border-radius: 5px;
+    padding: 8px 20px;
+    border-radius: 20px; /* Rounded button */
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    border: none;
+    text-align: center;
 }
 
-.logout-btn:hover, .login-btn:hover {
+.logout-btn:hover {
     background-color: #ff80ab;
 }
+
+.login-btn {
+    background-color: #03df15;
+    padding: 8px 20px; /* Padding for consistent size */
+    border-radius: 20px; /* Rounded button shape */
+    color: #fff;
+    text-decoration: none; /* Remove underline from the link */
+    font-weight: bold; /* Make the text bold */
+    transition: background-color 0.3s ease; /* Add hover transition effect */
+    border: none; /* Remove border */
+    text-align: center; /* Center-align text */
+}
+
+.login-btn:hover {
+    background-color: #00ff15; /* Lighter shade of the color on hover */
+}
+
+
+/* Add spacing between the username and button */
+.user-info span {
+    font-size: 16px;
+    font-weight: normal;
+}
+
 
 /* Logo Section */
 .logo-bar {

@@ -33,13 +33,22 @@ require './Database/db.php';
         if (isset($_POST["username"]) && isset($_POST["password"])) {
             $username = $_POST["username"];
             $password = $_POST["password"];
+
+            // SQL query to fetch username, password, and admin status
             $sql = "SELECT * FROM USERS WHERE USERNAME='$username'";
             $result = mysqli_query($conn, $sql);
+
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
+
+                // Verify password
                 if (password_verify($password, $row["PASSWORD"])) {
+                    // Set session variables
                     $_SESSION['logged_in'] = true;
                     $_SESSION['username'] = $username;
+                    $_SESSION['admin'] = (int)$row['ADMIN']; // Fetch and store admin value
+
+                    // Redirect to the index page
                     header('Location: index.php');
                 } else {
                     echo "<p style='color: red; text-align: center;'>Parole ir nepareiza</p>";
