@@ -1,3 +1,49 @@
+<?php
+require_once 'Database/config.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+
+    try {
+        $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Insert event details into the database
+        $stmt = $pdo->prepare("INSERT INTO events (NOSAUKUMS, APRAKSTS, CENA) VALUES (:title, :description, :price)");
+        $stmt->execute([
+            ':title' => $title,
+            ':description' => $description,
+            ':price' => $price
+        ]);
+        $event_id = $pdo->lastInsertId();
+
+        // Handle multiple file uploads
+        if (isset($_FILES['images'])) {
+            $eventFolder = 'images/event_' . $event_id . '/';
+            if (!is_dir($eventFolder)) {
+                mkdir($eventFolder, 0755, true);
+            }
+
+            foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
+                if ($_FILES['images']['error'][$key] === UPLOAD_ERR_OK) {
+                    $imageNewName = uniqid('img_', true) . '.jpg';
+                    $imageDestination = $eventFolder . $imageNewName;
+
+                    move_uploaded_file($tmp_name, $imageDestination);
+                }
+            }
+        }
+
+        header("Location: index.php?success=1");
+        exit;
+    } catch (PDOException $e) {
+        $errorMessage = "Database error: " . $e->getMessage();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,18 +57,22 @@
         <h1>Create a New Event</h1>
     </header>
     <main>
-        <form action="save_event.php" method="post" enctype="multipart/form-data">
-            <label for="title">Event Title:</label><br>
-            <input type="text" id="title" name="title" required><br><br>
+        <?php if (isset($errorMessage)): ?>
+            <div class="error-message"><?php echo htmlspecialchars($errorMessage); ?></div>
+        <?php endif; ?>
 
-            <label for="description">Event Description:</label><br>
-            <textarea id="description" name="description" rows="4" required></textarea><br><br>
+        <form action="new_event.php" method="post" enctype="multipart/form-data">
+            <label for="title">Event Title:</label>
+            <input type="text" id="title" name="title" required>
 
-            <label for="price">Price (€):</label><br>
-            <input type="number" id="price" name="price" required><br><br>
+            <label for="description">Event Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
 
-            <label for="image">Upload Image:</label><br>
-            <input type="file" id="image" name="image" accept="image/*" required><br><br>
+            <label for="price">Price (€):</label>
+            <input type="number" id="price" name="price" required>
+
+            <label for="images">Upload Images:</label>
+            <input type="file" id="images" name="images[]" accept="image/*" multiple required>
 
             <button type="submit">Save Event</button>
         </form>

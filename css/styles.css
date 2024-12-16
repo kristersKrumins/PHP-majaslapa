@@ -23,9 +23,9 @@ body {
 
 .top-bar .user-info {
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: flex-end; /* Align to the right */
-    gap: 5px; /* Add spacing between elements */
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
 }
 
 .top-bar .user-info span {
@@ -36,7 +36,7 @@ body {
 .logout-btn {
     background-color: #ff4081;
     padding: 8px 20px;
-    border-radius: 20px; /* Rounded button */
+    border-radius: 20px;
     color: #fff;
     text-decoration: none;
     font-weight: bold;
@@ -51,27 +51,24 @@ body {
 
 .login-btn {
     background-color: #03df15;
-    padding: 8px 20px; /* Padding for consistent size */
-    border-radius: 20px; /* Rounded button shape */
+    padding: 8px 20px;
+    border-radius: 20px;
     color: #fff;
-    text-decoration: none; /* Remove underline from the link */
-    font-weight: bold; /* Make the text bold */
-    transition: background-color 0.3s ease; /* Add hover transition effect */
-    border: none; /* Remove border */
-    text-align: center; /* Center-align text */
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    border: none;
+    text-align: center;
 }
 
 .login-btn:hover {
-    background-color: #00ff15; /* Lighter shade of the color on hover */
+    background-color: #00ff15;
 }
 
-
-/* Add spacing between the username and button */
 .user-info span {
     font-size: 16px;
     font-weight: normal;
 }
-
 
 /* Logo Section */
 .logo-bar {
@@ -227,4 +224,58 @@ footer {
     text-align: center;
     padding: 10px 0;
     margin-top: 20px;
+}
+
+/* Success Message */
+.success-message {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.image-slider {
+    position: relative;
+    text-align: center;
+}
+
+.image-slider img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.image-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.image-controls button {
+    padding: 10px 15px;
+    background-color: #4e148c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.image-controls button:hover {
+    background-color: #6a1b9a;
+}
+
+.delete-btn {
+    background-color: #ff4081;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.delete-btn:hover {
+    background-color: #ff80ab;
 }

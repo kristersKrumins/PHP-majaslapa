@@ -1,0 +1,136 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f4fc;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #6a1b9a;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+main {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Event Details */
+.event-details {
+    text-align: center;
+}
+
+.event-details h2 {
+    font-size: 20px;
+    color: #4e148c;
+    margin-bottom: 10px;
+}
+
+.event-details p {
+    font-size: 16px;
+    color: #757575;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Image Slider */
+.image-slider {
+    position: relative;
+    text-align: center;
+    max-width: 100%;
+    margin: 20px auto;
+}
+
+.image-slider img {
+    max-width: 100%;
+    max-height: 500px;
+    display: none;
+}
+
+.image-slider img.active {
+    display: block;
+}
+
+/* Navigation Buttons */
+/* Navigation Buttons */
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.nav-button-left {
+    left: 10px;
+}
+
+.nav-button-right {
+    right: 10px;
+}
+
+
+/* Back Button */
+.back-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #4e148c;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    text-align: center;
+}
+
+.back-btn:hover {
+    background-color: #6a1b9a;
+}
+
+/* Delete Button */
+.delete-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #ff80ab;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background-color: #4e148c;
+    color: white;
+    padding: 10px 0;
+    margin-top: 20px;
+    border-radius: 0 0 10px 10px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 14px;
+}
