@@ -33,7 +33,7 @@ if ($logged_in && (int)$admin === 1 && isset($_POST['delete'])) {
     try {
         $delete_stmt = $pdo->prepare("DELETE FROM events WHERE ID = :id");
         $delete_stmt->execute([':id' => $event_id]);
-
+        
         foreach ($images as $image) {
             if (file_exists($image)) {
                 unlink($image);
@@ -58,20 +58,27 @@ if ($logged_in && (int)$admin === 1 && isset($_POST['delete'])) {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const images = document.querySelectorAll('.image-slider img');
+            const dots = document.querySelectorAll('.slider-dots span');
+            const arrowLeft = document.querySelector('.arrow-left');
+            const arrowRight = document.querySelector('.arrow-right');
             let currentIndex = 0;
 
             function showImage(index) {
                 images.forEach((img, i) => {
                     img.classList.toggle('active', i === index);
                 });
+
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
             }
 
-            document.querySelector('.nav-button-left').addEventListener('click', function () {
+            arrowLeft.addEventListener('click', function () {
                 currentIndex = (currentIndex - 1 + images.length) % images.length;
                 showImage(currentIndex);
             });
 
-            document.querySelector('.nav-button-right').addEventListener('click', function () {
+            arrowRight.addEventListener('click', function () {
                 currentIndex = (currentIndex + 1) % images.length;
                 showImage(currentIndex);
             });
@@ -83,33 +90,44 @@ if ($logged_in && (int)$admin === 1 && isset($_POST['delete'])) {
 </head>
 <body>
     <header>
-        <h1><?php echo htmlspecialchars($event['NOSAUKUMS']); ?></h1>
     </header>
     <main>
         <div class="event-details">
             <div class="image-slider">
+                <span class="arrow-left">❮</span>
                 <?php if (!empty($images)): ?>
                     <?php foreach ($images as $image): ?>
                         <img src="<?php echo $image; ?>" alt="Event Image">
                     <?php endforeach; ?>
-                    <img src="images/button2.png" class="nav-button nav-button-left" alt="Previous">
-                    <img src="images/button.png" class="nav-button nav-button-right" alt="Next">
                 <?php else: ?>
                     <p>No images available for this event.</p>
                 <?php endif; ?>
+                <span class="arrow-right">❯</span>
             </div>
-            <h2>Description</h2>
+            <div class="slider-dots">
+                <?php if (!empty($images)): ?>
+                    <?php foreach ($images as $index => $image): ?>
+                        <span data-index="<?php echo $index; ?>"></span>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <h2>Nosaukums</h2>
+            <p><?php echo htmlspecialchars($event['NOSAUKUMS']); ?></p>
+            <h2>Apraksts</h2>
             <p><?php echo htmlspecialchars($event['APRAKSTS']); ?></p>
-            <h2>Price</h2>
+            <h2>Cena</h2>
             <p>€<?php echo htmlspecialchars($event['CENA']); ?></p>
 
-            <?php if ($logged_in && (int)$admin === 1): ?>
-                <form method="post">
-                    <button type="submit" name="delete" class="delete-btn">Delete Event</button>
-                </form>
-            <?php endif; ?>
+            <div class="action-buttons">
+                <a href="index.php" class="back-btn">Atpakaļ</a>
+                <?php if ($logged_in && (int)$admin === 1): ?>
+                    <a href="edit_event.php?id=<?php echo htmlspecialchars($event['ID']); ?>" class="edit-btn">Reģidēt</a>
+                    <form method="post" class="delete-form">
+                        <button type="submit" name="delete" class="delete-btn">Dzēst pasākumu</button>
+                    </form>
+                <?php endif; ?>
+            </div>
         </div>
-        <a href="index.php" class="back-btn">Back</a>
     </main>
 </body>
 </html>

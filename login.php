@@ -47,7 +47,8 @@ require './Database/db.php';
                     $_SESSION['logged_in'] = true;
                     $_SESSION['username'] = $username;
                     $_SESSION['admin'] = (int)$row['ADMIN']; // Fetch and store admin value
-
+                    $_SESSION['user_id'] = $user['id'];
+;
                     // Redirect to the index page
                     header('Location: index.php');
                 } else {

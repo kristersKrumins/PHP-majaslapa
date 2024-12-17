@@ -1,0 +1,154 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f4fc;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #6a1b9a;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Post Header Section */
+.post-header {
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.post-header .back-btn {
+    position: absolute;
+    left: 0;
+    transform: translateY(-50%);
+    text-decoration: none;
+    color: white;
+    background-color: #4e148c;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.post-header .back-btn:hover {
+    background-color: #6a1b9a;
+}
+
+.post-title {
+    font-size: 20px;
+    color: #4e148c;
+    font-weight: bold;
+    margin: 10px 0 0;
+    text-align: center;
+}
+
+/* Post Details */
+.post-details {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.post-content {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.post-meta {
+    color: #757575;
+    font-size: 14px;
+}
+
+/* Reply Form */
+.reply-form {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.reply-form textarea {
+    width: calc(100% - 40px);
+    max-width: 1000px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    font-size: 16px;
+}
+
+.reply-form .btn-reply {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.reply-form .btn-reply:hover {
+    background-color: #81c784;
+}
+
+/* Replies Section */
+.replies-list {
+    list-style: none;
+    padding: 0;
+}
+
+.reply {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.reply-meta {
+    font-size: 14px;
+    color: #4e148c;
+    margin-bottom: 5px;
+}
+
+.no-replies {
+    text-align: center;
+    font-size: 14px;
+    color: #757575;
+}
+
+/* Error Message */
+.error {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Login Prompt */
+.login-prompt {
+    text-align: center;
+    font-size: 14px;
+}

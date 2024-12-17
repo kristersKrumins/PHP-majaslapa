@@ -80,23 +80,24 @@ try {
         <nav class="main-nav">
             <ul>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About Us</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="forums.php">Forums</a></li>
+                <li><a href="about.php">Par mums</a></li>
+                <li><a href="contact.php">Kontakti</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-            <div id="success-banner" class="success-message">Event created successfully!</div>
+            <div id="success-banner" class="success-message">Pasākums izveidot veiksmīgi!</div>
         <?php elseif (isset($_GET['success']) && $_GET['success'] == 2): ?>
-            <div id="success-banner" class="success-message">Event deleted successfully!</div>
+            <div id="success-banner" class="success-message">Pasākums izdzēsts veiksmīgi!</div>
         <?php endif; ?>
 
         <div class="main-heading">
             <h2>Explore Fun Events for Kids!</h2>
             <?php if ($logged_in && (int)$admin === 1): ?>
-                <a href="new_event.php" class="new-event-btn">Create New Event</a>
+                <a href="new_event.php" class="new-event-btn">Izveidot jaunu pasākumu</a>
             <?php endif; ?>
         </div>
 
