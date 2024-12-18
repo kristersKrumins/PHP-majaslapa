@@ -1,0 +1,99 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f4fc;
+}
+
+header {
+    background-color: #6a1b9a;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gallery-item {
+    width: 200px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 5px;
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.1);
+}
+
+#popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column; /* Stack content vertically */
+}
+
+#popup img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+}
+
+#popup .close-btn,
+#popup .nav-btn {
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#popup .close-btn {
+    top: 20px;
+    right: 20px;
+}
+
+#popup .nav-btn.left {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#popup .nav-btn.right {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#popup .photo-number {
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+    text-align: center;
+}

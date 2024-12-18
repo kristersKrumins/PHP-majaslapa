@@ -159,3 +159,115 @@ main {
 .delete-btn:hover {
     background-color: #ff80ab;
 }
+
+/* Reviews Section */
+.reviews-section {
+    margin-top: 30px;
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.reviews-section h3 {
+    font-size: 18px;
+    color: #4e148c;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Interactive Stars for Review Submission */
+.star-rating {
+    display: flex;
+    justify-content: center; /* Centered for interactive stars */
+    margin: 15px 0;
+    gap: 5px; /* Space between stars */
+}
+
+.star-rating .star {
+    font-size: 50px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.star-rating .star.selected {
+    color: #fbc02d;
+    transform: scale(1.2); /* Slight zoom on selection */
+}
+
+.star-rating .star:hover {
+    color: #fbc02d;
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+.star-rating .star:hover ~ .star {
+    color: #ccc;
+}
+
+/* View-Only Stars for Submitted Reviews */
+.submitted-stars {
+    display: flex;
+    justify-content: left; /* Align stars to the left */
+    gap: 3px; /* Space between stars */
+}
+
+.submitted-stars .star.view-only {
+    font-size: 30px; /* Smaller size for submitted reviews */
+    color: #ccc; /* Default gray */
+    margin-right: 3px;
+    pointer-events: none; /* Disable interactivity */
+}
+
+.submitted-stars .star.view-only.selected,
+.submitted-stars .fa-star-half-o.view-only.selected {
+    color: #fbc02d; /* Yellow for selected stars */
+}
+
+/* Review Form */
+.review-form textarea {
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    margin-top: 10px;
+}
+
+.review-form button {
+    display: block;
+    margin: 10px auto;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.review-form button:hover {
+    background-color: #81c784;
+}
+
+.reviews-list {
+    list-style: none;
+    padding: 0;
+}
+
+.reviews-list .review {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.reviews-list .review p {
+    margin: 5px 0;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}

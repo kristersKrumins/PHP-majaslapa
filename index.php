@@ -42,18 +42,23 @@ try {
     <title>Children's Event Hosting</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const successBanner = document.getElementById('success-banner');
-            if (successBanner) {
+    document.addEventListener('DOMContentLoaded', function () {
+        const successBanner = document.getElementById('success-banner');
+        if (successBanner) {
+            setTimeout(() => {
+                successBanner.style.opacity = '0'; // Fade out
                 setTimeout(() => {
-                    successBanner.style.opacity = '0'; // Fade out
-                    setTimeout(() => {
-                        successBanner.style.display = 'none'; // Remove after fade
-                    }, 1000);
-                }, 5000); // Show duration
-            }
-        });
-    </script>
+                    successBanner.style.display = 'none'; // Remove after fade
+                    // Remove the success parameter from the URL
+                    const url = new URL(window.location.href);
+                    url.searchParams.delete('success');
+                    window.history.replaceState(null, '', url); // Update the URL
+                }, 1000);
+            }, 5000); // Show duration
+        }
+    });
+</script>
+
     <style>
         #success-banner {
             transition: opacity 1s ease-out; /* Smooth fade-out */
@@ -81,7 +86,7 @@ try {
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="forums.php">Forums</a></li>
-                <li><a href="about.php">Par mums</a></li>
+                <li><a href="Galerie.php">Galerija</a></li>
                 <li><a href="contact.php">Kontakti</a></li>
             </ul>
         </nav>
