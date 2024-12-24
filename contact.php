@@ -9,8 +9,24 @@
 </head>
 <body>
     <header>
-        <h1>Kontakti</h1>
+        <!-- Top Section -->
+        <div class="top-bar">
+            
+        </div>
+        <div class="logo-bar">
+            <h1>Children's Event Hosting</h1>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="forums.php">Forums</a></li>
+                <li><a href="Galerie.php">Galerija</a></li>
+                <li><a href="contact.php">Kontakti</a></li>
+            </ul>
+        </nav>
     </header>
+
+    <!-- Main Content -->
     <main>
         <section class="map-section">
             <iframe

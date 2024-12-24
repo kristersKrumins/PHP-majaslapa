@@ -179,7 +179,7 @@ try {
             <div class="action-buttons">
                 <a href="index.php" class="back-btn">Atpakaļ</a>
                 <?php if ($logged_in && (int)$admin === 1): ?>
-                    <a href="edit_event.php?id=<?php echo htmlspecialchars($event['ID']); ?>" class="edit-btn">Reģidēt</a>
+                    <a href="edit_event.php?id=<?php echo htmlspecialchars($event['id']); ?>" class="edit-btn">Reģidēt</a>
                     <form method="post" class="delete-form">
                         <button type="submit" name="delete" class="delete-btn">Dzēst pasākumu</button>
                     </form>
@@ -213,12 +213,12 @@ try {
                 <ul class="reviews-list">
                     <?php foreach ($reviews as $review): ?>
                         <li class="review">
-                            <p><strong><?php echo htmlspecialchars($review['LIETOTAJVARDS']); ?></strong> - 
-                                <span><?php echo htmlspecialchars($review['DATUMS']); ?></span></p>
+                            <p><strong><?php echo htmlspecialchars($review['lietotajvards']); ?></strong> - 
+                                <span><?php echo htmlspecialchars($review['datums']); ?></span></p>
                             <p class="submitted-stars">
                                 <?php 
-                                $fullStars = floor($review['REITINGS']);
-                                $halfStar = ($review['REITINGS'] - $fullStars) >= 0.5;
+                                $fullStars = floor($review['reitings']);
+                                $halfStar = ($review['reitings'] - $fullStars) >= 0.5;
                                 for ($i = 0; $i < 5; $i++) {
                                     if ($i < $fullStars) {
                                         echo '<span class="fa fa-star star view-only selected"></span>';
@@ -230,7 +230,7 @@ try {
                                 }
                                 ?>
                             </p>
-                            <p><?php echo htmlspecialchars($review['ATSAUKSME']); ?></p>
+                            <p><?php echo htmlspecialchars($review['atsauksme']); ?></p>
                         </li>
                     <?php endforeach; ?>
                 </ul>

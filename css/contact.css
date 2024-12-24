@@ -1,3 +1,4 @@
+/* General Body Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,89 +6,182 @@ body {
     background-color: #f8f4fc;
 }
 
+/* Header Styling */
 header {
-    background-color: #6a1b9a;
-    color: white;
     text-align: center;
-    padding: 15px;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 24px;
-}
-
-.gallery-container {
+/* Top Bar Styling */
+.top-bar {
+    background-color: #4e148c;
+    padding: 10px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.user-info {
+    color: white;
+    margin-right: 20px;
+}
+
+.logout-btn {
+    background-color: #ff4081;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.logout-btn:hover {
+    background-color: #ff80ab;
+}
+
+/* Logo Bar Styling */
+.logo-bar {
+    background-color: #6a1b9a;
     padding: 20px;
 }
 
-.gallery-item {
-    width: 200px;
-    height: 150px;
-    overflow: hidden;
-    border-radius: 5px;
-    position: relative;
+.logo-bar h1 {
+    color: white;
+    margin: 0;
+    font-size: 32px;
 }
 
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+/* Main Navigation Bar */
+.main-nav {
+    background-color: #4e148c;
+    padding: 10px 0;
 }
 
-.gallery-item img:hover {
-    transform: scale(1.1);
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-#popup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+.main-nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.main-nav a:hover {
+    text-decoration: underline;
+}
+
+/* Contact Page Styling */
+.map-section iframe {
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+    padding: 20px;
+    text-align: center;
+    background-color: #f4f1f9;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+/* Left Contact Info */
+.contact-left h2 {
+    color: #4e148c;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.contact-left p {
+    color: #757575;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+/* Right Contact Info with Highlight */
+.contact-right h2 {
+    color: #4e148c;
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    white-space: nowrap; /* Prevent text from breaking into multiple lines */
+    display: inline-block; /* Ensure proper centering */
+}
+
+.contact-right .highlight {
+    color: #ff4081;
+    font-weight: bold;
+}
+
+/* Social Icons */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
 }
 
-#popup img {
-    max-width: 80%;
-    max-height: 80%;
-    border-radius: 10px;
-}
-
-#popup .close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
+.social-icons a:hover {
+    background-color: #ff80ab;
     color: white;
-    cursor: pointer;
 }
 
-#popup .navigation {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 40px;
-    color: white;
-    cursor: pointer;
-    user-select: none;
+.social-icons .fa-facebook-f {
+    background-color: #3b5998;
 }
 
-#popup .navigation.left {
-    left: 20px;
+.social-icons .fa-twitter {
+    background-color: #00acee;
 }
 
-#popup .navigation.right {
-    right: 20px;
+.social-icons .fa-instagram {
+    background-color: #e4405f;
+}
+
+/* Success Banner */
+#success-banner {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #c3e6cb;
+    font-size: 16px;
+    font-weight: bold;
+    animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

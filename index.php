@@ -109,12 +109,12 @@ try {
         <div class="event-grid">
             <?php foreach ($events as $event): ?>
                 <?php
-                $eventFolder = 'images/event_' . $event['ID'] . '/';
+                $eventFolder = 'images/event_' . $event['id'] . '/';
                 $images = glob($eventFolder . '*');
                 $firstImage = $images ? $images[0] : 'placeholder.jpg';
                 ?>
                 <div class="event-card">
-                    <a href="events.php?id=<?php echo htmlspecialchars($event['ID']); ?>">
+                    <a href="events.php?id=<?php echo htmlspecialchars($event['id']); ?>">
                         <img src="<?php echo $firstImage; ?>" alt="<?php echo htmlspecialchars($event['NOSAUKUMS']); ?>">
                         <h3><?php echo htmlspecialchars($event['NOSAUKUMS']); ?></h3>
                     </a>

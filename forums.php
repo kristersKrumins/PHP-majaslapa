@@ -66,29 +66,56 @@ try {
     <link rel="stylesheet" href="css/forums.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Handle dropdown toggling
+            // Toggle dropdown menu
             document.querySelectorAll('.dropdown-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const dropdown = btn.nextElementSibling;
-                    dropdown.classList.toggle('show');
+                btn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const dropdownMenu = btn.nextElementSibling;
+                    dropdownMenu.classList.toggle('show');
                 });
             });
 
-            // Close dropdowns if clicking outside
-            document.addEventListener('click', (event) => {
-                if (!event.target.matches('.dropdown-btn')) {
-                    document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                        menu.classList.remove('show');
-                    });
-                }
+            // Close dropdown menu on outside click
+            document.addEventListener('click', () => {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
             });
         });
     </script>
 </head>
 <body>
     <header>
-        <h1>Community Forums</h1>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="right-info">
+                <?php if ($logged_in): ?>
+                    <div class="user-info">
+                        <a href="index.php?logout=true" class="logout-btn">Logout</a>
+                        <span>User: <?php echo htmlspecialchars($username); ?></span>
+                    </div>
+                <?php else: ?>
+                    <a href="login.php" class="login-btn">Login</a>
+                <?php endif; ?>
+            </div>
+        </div>
+
+        <!-- Logo Bar -->
+        <div class="logo-bar">
+            <h1>Community Forums</h1>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a></li>
+                <li><a href="forums.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'forums.php' ? 'active' : ''; ?>">Forums</a></li>
+                <li><a href="Galerie.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'Galerie.php' ? 'active' : ''; ?>">Galerija</a></li>
+                <li><a href="contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Kontakti</a></li>
+            </ul>
+        </nav>
     </header>
+
     <main>
         <section class="new-post-section">
             <div class="heading-container">
@@ -117,20 +144,18 @@ try {
                         <li>
                             <div class="post-header">
                                 <h3><a href="forum_post.php?id=<?php echo htmlspecialchars($post['id']); ?>"><?php echo htmlspecialchars($post['title']); ?></a></h3>
-                                <p><?php echo htmlspecialchars($post['username']); ?> - <?php echo htmlspecialchars($post['created_at']); ?></p>
-                                <?php if ($logged_in && $post['username'] === $username): ?>
-                                    <div class="dropdown">
-                                        <button class="dropdown-btn">⋮</button>
-                                        <div class="dropdown-menu">
-                                            <form method="post" class="dropdown-form">
-                                                <input type="hidden" name="delete_post" value="<?php echo htmlspecialchars($post['id']); ?>">
-                                                <button type="submit" class="dropdown-item">Delete</button>
-                                            </form>
-                                            <a href="edit_post.php?id=<?php echo htmlspecialchars($post['id']); ?>" class="dropdown-item">Edit</a>
-                                        </div>
+                                <div class="dropdown">
+                                    <button class="dropdown-btn">⋮</button>
+                                    <div class="dropdown-menu">
+                                        <form method="post" class="dropdown-form">
+                                            <input type="hidden" name="delete_post" value="<?php echo htmlspecialchars($post['id']); ?>">
+                                            <button type="submit" class="dropdown-item">Delete</button>
+                                        </form>
+                                        <a href="edit_post.php?id=<?php echo htmlspecialchars($post['id']); ?>" class="dropdown-item">Edit</a>
                                     </div>
-                                <?php endif; ?>
+                                </div>
                             </div>
+
                         </li>
                     <?php endforeach; ?>
                 </ul>

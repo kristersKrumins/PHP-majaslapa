@@ -42,11 +42,11 @@ require './Database/db.php';
                 $row = mysqli_fetch_assoc($result);
 
                 // Verify password
-                if (password_verify($password, $row["PASSWORD"])) {
+                if (password_verify($password, $row["password"])) {
                     // Set session variables
                     $_SESSION['logged_in'] = true;
                     $_SESSION['username'] = $username;
-                    $_SESSION['admin'] = (int)$row['ADMIN']; // Fetch and store admin value
+                    $_SESSION['admin'] = (int)$row['admin']; // Fetch and store admin value
                     $_SESSION['user_id'] = $user['id'];
 ;
                     // Redirect to the index page

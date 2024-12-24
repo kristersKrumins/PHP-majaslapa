@@ -6,29 +6,107 @@ body {
     padding: 0;
 }
 
-header {
+/* Top Bar Styling */
+.top-bar {
+    background-color: #4e148c;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.top-bar .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.top-bar .user-info span {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.logout-btn,
+.login-btn {
+    background-color: #ff4081;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+    border: none;
+    text-align: center;
+}
+
+.logout-btn:hover,
+.login-btn:hover {
+    background-color: #ff80ab;
+}
+
+/* Logo Bar Styling */
+.logo-bar {
     background-color: #6a1b9a;
     color: white;
     text-align: center;
     padding: 15px 0;
-    margin-bottom: 20px;
 }
 
-header h1 {
-    font-size: 24px;
+.logo-bar h1 {
     margin: 0;
+    font-size: 24px;
     text-transform: uppercase;
 }
 
+/* Navigation Bar Styling */
+nav.main-nav {
+    background-color: #4e148c;
+    padding: 10px 0;
+}
+
+nav.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+}
+
+nav.main-nav ul li {
+    display: inline-block;
+}
+
+nav.main-nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav.main-nav ul li a:hover,
+nav.main-nav ul li a.active {
+    background-color: #6a1b9a;
+    color: #f0f0f0;
+}
+
+/* Main Content Styling */
 main {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
 }
 
+/* Section Headings */
 .new-post-section h2,
 .posts-section h2 {
     font-size: 20px;
@@ -37,135 +115,7 @@ main {
     text-align: center;
 }
 
-.new-post-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 30px;
-    align-items: center; /* Center all form elements */
-}
-
-.new-post-form input[type="text"],
-.new-post-form textarea {
-    width: calc(100% - 10px); /* Consistent margin from sides */
-    max-width: 1000px; /* Limit width for better readability */
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.new-post-form textarea {
-    resize: none;
-}
-
-.new-post-form button {
-    display: block;
-    padding: 10px 20px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    margin: 10px auto; /* Center the button */
-}
-
-.new-post-form button:hover {
-    background-color: #81c784;
-}
-
-.posts-list {
-    list-style: none;
-    padding: 0;
-}
-
-.posts-list li {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    position: relative;
-}
-
-/* Post Header */
-.post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Dropdown Button */
-.dropdown-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #757575;
-}
-
-/* Dropdown Menu */
-.dropdown {
-    position: relative;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    display: none;
-    flex-direction: column;
-    z-index: 10;
-}
-
-.dropdown-menu.show {
-    display: flex;
-}
-
-.dropdown-item {
-    padding: 10px;
-    text-align: left;
-    text-decoration: none;
-    color: #4e148c;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.dropdown-item:last-child {
-    border-bottom: none;
-}
-
-.dropdown-item:hover {
-    background-color: #f0f0f0;
-}
-
-/* Error Message */
-.error {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    background-color: #4e148c;
-    color: white;
-    padding: 10px 0;
-    margin-top: 20px;
-    border-radius: 0 0 10px 10px;
-}
-
-footer p {
-    margin: 0;
-    font-size: 14px;
-}
-
+/* Back Button Styling */
 .back-btn {
     display: inline-block;
     padding: 8px 12px;
@@ -180,4 +130,190 @@ footer p {
 
 .back-btn:hover {
     background-color: #6a1b9a;
+}
+
+/* Form Styling */
+.new-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.new-post-form input[type="text"],
+.new-post-form textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.new-post-form textarea {
+    resize: none;
+}
+
+.new-post-form button {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.new-post-form button:hover {
+    background-color: #81c784;
+}
+
+/* Posts List Styling */
+.posts-list {
+    list-style: none;
+    padding: 0;
+}
+
+.posts-list li {
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Footer */
+footer {
+    background-color: #4e148c;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+/* Dropdown Button */
+.dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #757575;
+}
+
+/* Dropdown Menu */
+/* Dropdown Button */
+.dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #757575;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dropdown Button */
+.dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #757575;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dropdown Button */
+.dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #757575;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dropdown Button */
+.dropdown-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #757575;
+    padding: 5px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: none;
+    flex-direction: column;
+    min-width: 150px;
+    padding: 0; /* Remove extra padding from the container */
+    z-index: 10;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-item,
+.dropdown-form button {
+    all: unset; /* Reset default browser styles */
+    display: block;
+    padding: 10px 15px; /* Adjust padding for consistent spacing */
+    text-align: left;
+    text-decoration: none;
+    color: #4e148c;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%; /* Ensure items align with the menu width */
+    box-sizing: border-box; /* Include padding in width calculations */
+}
+
+.dropdown-item:hover,
+.dropdown-form button:hover {
+    background-color: #f0f0f0;
+    color: #6a1b9a;
+}
+
+.dropdown-form button {
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-family: inherit; /* Inherit the font styling */
+}
+
+/* Post Header */
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
 }
