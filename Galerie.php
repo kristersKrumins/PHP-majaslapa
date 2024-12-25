@@ -28,8 +28,27 @@ if (!$images) {
 </head>
 <body>
     <header>
-        <h1>GALERIE</h1>
+        <!-- Top Bar -->
+        <div class="top-bar">
+            
+        </div>
+
+        <!-- Logo Bar -->
+        <div class="logo-bar">
+            <h1>Galerija</h1>
+        </div>
+
+        <!-- Navigation Bar -->
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="forums.php">Forums</a></li>
+                <li><a href="Galerie.php">Galerija</a></li>
+                <li><a href="contact.php">Kontakti</a></li>
+            </ul>
+        </nav>
     </header>
+
     <main>
         <div class="gallery-container">
             <?php

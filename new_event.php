@@ -49,12 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Event</title>
+    <title>Izveido jaunu pasākumu</title>
     <link rel="stylesheet" href="css/new_event.css">
 </head>
 <body>
     <header>
-        <h1>Create a New Event</h1>
+        <h1>Izveido jaunu pasākumu</h1>
     </header>
     <main>
         <?php if (isset($errorMessage)): ?>
@@ -62,19 +62,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form action="new_event.php" method="post" enctype="multipart/form-data">
-            <label for="title">Event Title:</label>
+            <label for="title">Pasākuma nosaukums:</label>
             <input type="text" id="title" name="title" required>
 
-            <label for="description">Event Description:</label>
+            <label for="description">Pasākuma apraksts:</label>
             <textarea id="description" name="description" rows="4" required></textarea>
 
-            <label for="price">Price (€):</label>
+            <label for="price">Cena (€):</label>
             <input type="number" id="price" name="price" required>
 
-            <label for="images">Upload Images:</label>
+            <label for="images">Pievieno bildes:</label>
             <input type="file" id="images" name="images[]" accept="image/*" multiple required>
 
-            <button type="submit">Save Event</button>
+            <button type="submit">Saglabāt pasākumu</button>
         </form>
     </main>
 </body>

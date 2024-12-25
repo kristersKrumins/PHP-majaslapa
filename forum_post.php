@@ -58,16 +58,16 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forum Post</title>
+    <title>Foruma ieraksts</title>
     <link rel="stylesheet" href="css/forum_post.css">
 </head>
 <body>
     <header>
-        <h1>Forum Post</h1>
+        <h1>Forums</h1>
     </header>
     <main>
         <section class="post-header">
-            <a href="forums.php" class="back-btn">← Back</a>
+            <a href="forums.php" class="back-btn">Atpakaļ</a>
             <p class="post-title"><strong><?php echo htmlspecialchars($post['title']); ?></strong></p>
         </section>
         <section class="post-details">
@@ -81,17 +81,17 @@ try {
         <section class="replies-section">
             <?php if ($logged_in): ?>
                 <form method="post" class="reply-form">
-                    <textarea name="reply" rows="4" placeholder="Write your reply..." required></textarea>
-                    <button type="submit" class="btn-reply">Post Reply</button>
+                    <textarea name="reply" rows="4" placeholder="Pievieno savu atbildi..." required></textarea>
+                    <button type="submit" class="btn-reply">Pievienot</button>
                 </form>
                 <?php if (isset($error)): ?>
                     <p class="error"><?php echo htmlspecialchars($error); ?></p>
                 <?php endif; ?>
             <?php else: ?>
-                <p class="login-prompt">You must <a href="login.php">log in</a> to reply.</p>
+                <p class="login-prompt">Nepieciešams <a href="login.php">Pierakstīties</a> lai pievienotu atbildi.</p>
             <?php endif; ?>
 
-            <h2>Replies</h2>
+            <h2>Atbildes</h2>
             <?php if (!empty($replies)): ?>
                 <ul class="replies-list">
                     <?php foreach ($replies as $reply): ?>
@@ -105,7 +105,7 @@ try {
                     <?php endforeach; ?>
                 </ul>
             <?php else: ?>
-                <p class="no-replies">No replies yet. Be the first to reply!</p>
+                <p class="no-replies">Vēl nav nevienas atbildes. Esi pirmais, kas atbild!</p>
             <?php endif; ?>
         </section>
     </main>

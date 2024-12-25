@@ -102,42 +102,42 @@ try {
 
         <!-- Logo Bar -->
         <div class="logo-bar">
-            <h1>Community Forums</h1>
+            <h1>Forums</h1>
         </div>
 
         <!-- Navigation Bar -->
         <nav class="main-nav">
             <ul>
-                <li><a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a></li>
-                <li><a href="forums.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'forums.php' ? 'active' : ''; ?>">Forums</a></li>
-                <li><a href="Galerie.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'Galerie.php' ? 'active' : ''; ?>">Galerija</a></li>
-                <li><a href="contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Kontakti</a></li>
-            </ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="forums.php">Forums</a></li>
+                <li><a href="Galerie.php">Galerija</a></li>
+                <li><a href="contact.php">Kontakti</a></li>
+             </ul>
         </nav>
+
     </header>
 
     <main>
         <section class="new-post-section">
             <div class="heading-container">
-                <a href="index.php" class="back-btn">Back</a>
-                <h2>Create a New Post</h2>
+                <h2>Izveido jaunu ierakstu</h2>
             </div>
             <?php if ($logged_in): ?>
                 <form method="post" class="new-post-form">
-                    <input type="text" name="title" placeholder="Post Title" required>
-                    <textarea name="content" rows="4" placeholder="Write your thoughts or question..." required></textarea>
-                    <button type="submit">Post</button>
+                    <input type="text" name="title" placeholder="Raksta virsraksts" required>
+                    <textarea name="content" rows="4" placeholder="Ieraksti savas domas ..." required></textarea>
+                    <button type="submit">Ievietot</button>
                 </form>
                 <?php if (isset($error)): ?>
                     <p class="error"><?php echo htmlspecialchars($error); ?></p>
                 <?php endif; ?>
             <?php else: ?>
-                <p>You must <a href="login.php">log in</a> to create a post.</p>
+                <p>Nepieciešams <a href="login.php">pierakstīties</a> , lai izveidotu ierakstu.</p>
             <?php endif; ?>
         </section>
 
         <section class="posts-section">
-            <h2>All Posts</h2>
+            <h2>Visi ieraksti</h2>
             <?php if (!empty($posts)): ?>
                 <ul class="posts-list">
                     <?php foreach ($posts as $post): ?>
@@ -149,9 +149,9 @@ try {
                                     <div class="dropdown-menu">
                                         <form method="post" class="dropdown-form">
                                             <input type="hidden" name="delete_post" value="<?php echo htmlspecialchars($post['id']); ?>">
-                                            <button type="submit" class="dropdown-item">Delete</button>
+                                            <button type="submit" class="dropdown-item">Dzēst</button>
                                         </form>
-                                        <a href="edit_post.php?id=<?php echo htmlspecialchars($post['id']); ?>" class="dropdown-item">Edit</a>
+                                        <a href="edit_post.php?id=<?php echo htmlspecialchars($post['id']); ?>" class="dropdown-item">Reģidēt</a>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@ try {
                     <?php endforeach; ?>
                 </ul>
             <?php else: ?>
-                <p>No posts yet. Be the first to share your thoughts!</p>
+                <p>Vēl nav neviena ieraksta. Esi pirmais, kas padalās ar savām domām!</p>
             <?php endif; ?>
         </section>
     </main>

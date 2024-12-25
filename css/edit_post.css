@@ -1,0 +1,126 @@
+/* General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f4fc;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styling */
+header {
+    background-color: #6a1b9a;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+/* Main Section Styling */
+main {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.edit-post-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center; /* Center the content horizontally */
+}
+
+/* Back Button Styling */
+.back-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #4e148c;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    align-self: flex-start; /* Align the back button to the left */
+}
+
+.back-btn:hover {
+    background-color: #6a1b9a;
+}
+
+/* Form Styling */
+.edit-post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%; /* Stretch form to full width */
+}
+
+.edit-post-form label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4e148c;
+    text-align: center; /* Center the labels */
+}
+
+.edit-post-form input[type="text"],
+.edit-post-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.edit-post-form textarea {
+    resize: none;
+}
+
+.edit-post-form button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-post-form button:hover {
+    background-color: #81c784;
+}
+
+/* Error Message Styling */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Responsive Styling */
+@media screen and (max-width: 600px) {
+    main {
+        padding: 15px;
+    }
+
+    .edit-post-form input[type="text"],
+    .edit-post-form textarea {
+        font-size: 14px;
+    }
+
+    .edit-post-form button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}

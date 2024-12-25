@@ -1,3 +1,4 @@
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,18 +6,118 @@ body {
     background-color: #f8f4fc;
 }
 
-header {
+/* Top Bar Styling */
+.top-bar {
+    background-color: #4e148c;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.top-bar .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.top-bar .user-info span {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+}
+
+.logout-btn,
+.login-btn {
+    background-color: #ff4081;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+    border: none;
+    text-align: center;
+}
+
+.logout-btn:hover,
+.login-btn:hover {
+    background-color: #ff80ab;
+}
+
+/* Logo Bar Styling */
+.logo-bar {
     background-color: #6a1b9a;
     color: white;
     text-align: center;
-    padding: 15px;
+    padding: 15px 0;
 }
 
-header h1 {
+.logo-bar h1 {
     margin: 0;
     font-size: 24px;
+    text-transform: uppercase;
 }
 
+/* Navigation Bar Styling */
+nav.main-nav {
+    background-color: #4e148c;
+    padding: 10px 0;
+}
+
+nav.main-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    gap: 20px;
+}
+
+nav.main-nav ul li {
+    display: inline-block;
+}
+
+nav.main-nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    position: relative;
+    padding: 5px 0; /* Add space for underline animation */
+    transition: color 0.3s ease;
+}
+
+/* Hover underline animation */
+nav.main-nav ul li a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: white;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease; /* Smooth underline transition */
+}
+
+nav.main-nav ul li a:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+nav.main-nav ul li a.active::after {
+    width: 100%; /* Keep underline for active page */
+}
+
+/* Active link styling */
+nav.main-nav ul li a.active {
+    color: #f0f0f0;
+}
+
+
+/* Gallery Section */
 .gallery-container {
     display: flex;
     flex-wrap: wrap;
@@ -45,6 +146,7 @@ header h1 {
     transform: scale(1.1);
 }
 
+/* Popup Styling */
 #popup {
     display: none;
     position: fixed;

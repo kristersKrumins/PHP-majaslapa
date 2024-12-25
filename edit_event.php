@@ -32,6 +32,11 @@ try {
     if (!$event) {
         die("Event not found. <a href='index.php'>Go back</a>");
     }
+
+    $eventFolder = 'images/event_' . $event_id . '/'; // Use event-specific folder
+    if (!is_dir($eventFolder)) {
+        mkdir($eventFolder, 0777, true); // Create folder if it doesn't exist
+    }
 } catch (PDOException $e) {
     die("Database error: " . $e->getMessage());
 }
@@ -44,20 +49,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if a new image is uploaded
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        $uploadFolder = 'images/';
-        $imageNewName = uniqid('event_', true) . '.jpg';
-        $imageDestination = $uploadFolder . $imageNewName;
+        $imageNewName = uniqid('event_', true) . '.' . pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+        $imageDestination = $eventFolder . $imageNewName;
+
+        // Ensure the upload folder exists and is writable
+        if (!is_dir($eventFolder) || !is_writable($eventFolder)) {
+            die("Upload folder does not exist or is not writable.");
+        }
 
         // Move the uploaded file
         if (move_uploaded_file($_FILES['image']['tmp_name'], $imageDestination)) {
-            // Delete the old image
-            $oldImage = $uploadFolder . $event['BILDE'];
+            // Delete the old image if it exists
+            $oldImage = $eventFolder . $event['BILDE'];
             if (file_exists($oldImage)) {
                 unlink($oldImage);
             }
 
             // Update the image name in the database
             $event['BILDE'] = $imageNewName;
+        } else {
+            die("Failed to move uploaded file. Check folder permissions and paths.");
+        }
+    } else if ($_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
+        // Handle file upload errors
+        switch ($_FILES['image']['error']) {
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE:
+                $errorMessage = "The uploaded file exceeds the allowed size.";
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $errorMessage = "The file was only partially uploaded.";
+                break;
+            default:
+                $errorMessage = "An unknown error occurred during file upload.";
         }
     }
 
@@ -85,12 +109,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Event</title>
+    <title>Rediģē pasākum</title>
     <link rel="stylesheet" href="css/edit_event.css">
 </head>
 <body>
     <header>
-        <h1>Edit Event</h1>
+        <h1>Rediģē pasākum</h1>
     </header>
     <main>
         <?php if (isset($errorMessage)): ?>
@@ -98,19 +122,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form action="edit_event.php?id=<?php echo htmlspecialchars($event_id); ?>" method="post" enctype="multipart/form-data">
-            <label for="title">Event Title:</label>
+            <label for="title">Pasākuma nosaukums:</label>
             <input type="text" id="title" name="title" value="<?php echo htmlspecialchars($event['NOSAUKUMS']); ?>" required>
 
-            <label for="description">Event Description:</label>
+            <label for="description">Pasākuma apraksts:</label>
             <textarea id="description" name="description" rows="4" required><?php echo htmlspecialchars($event['APRAKSTS']); ?></textarea>
 
-            <label for="price">Price (€):</label>
+            <label for="price">Cena (€):</label>
             <input type="number" id="price" name="price" value="<?php echo htmlspecialchars($event['CENA']); ?>" required>
 
-            <label for="image">Upload New Image (optional):</label>
+            <label for="image">Pievieno jaunas bildes (neobligāti):</label>
             <input type="file" id="image" name="image" accept="image/*">
 
-            <button type="submit">Save Changes</button>
+            <button type="submit">Saglabāt izmaiņas</button>
         </form>
 
         <a href="events.php?id=<?php echo htmlspecialchars($event_id); ?>" class="back-btn">Atpakaļ</a>

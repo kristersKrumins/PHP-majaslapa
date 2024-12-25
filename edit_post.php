@@ -64,23 +64,24 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Post</title>
-    <link rel="stylesheet" href="css/forums.css">
+    <title>Rediģēt ierakstus</title>
+    <link rel="stylesheet" href="css/edit_post.css">
 </head>
 <body>
     <header>
-        <h1>Edit Post</h1>
+        <h1>Rediģēt ierakstus</h1>
     </header>
     <main>
         <section class="edit-post-section">
+        <a href="forums.php" class="back-btn">Atpakaļ</a>
             <form method="post" class="edit-post-form">
-                <label for="title">Post Title</label>
+                <label for="title">Ieraksta nosaukums</label>
                 <input type="text" name="title" id="title" value="<?php echo htmlspecialchars($post['title']); ?>" required>
 
-                <label for="content">Content</label>
+                <label for="content">Ieraksta teksts</label>
                 <textarea name="content" id="content" rows="5" required><?php echo htmlspecialchars($post['content']); ?></textarea>
 
-                <button type="submit">Update Post</button>
+                <button type="submit">Rediģēt ierakstu</button>
             </form>
             <?php if (isset($error)): ?>
                 <p class="error"><?php echo htmlspecialchars($error); ?></p>

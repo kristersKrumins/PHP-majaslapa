@@ -116,6 +116,11 @@ main {
 }
 
 /* Replies Section */
+.replies-section h2{
+    text-align: center;
+    color: #4e148c;
+}
+
 .replies-list {
     list-style: none;
     padding: 0;

@@ -34,13 +34,20 @@ label {
     color: #4e148c;
 }
 
-input, textarea, button {
+input,
+textarea,
+button {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    box-sizing: border-box; /* Fix the width overflow issue */
+}
+
+textarea {
+    resize: none; /* Prevent resizing of the textarea */
 }
 
 button {

@@ -106,11 +106,34 @@ body {
     text-decoration: none;
     font-size: 16px;
     font-weight: bold;
+    position: relative;
+    padding: 5px 0; /* Add space for underline animation */
     transition: color 0.3s ease;
 }
 
 .main-nav ul li a:hover {
-    color: #ff4081;
+    color: #f0f0f0;
+}
+
+/* Hover underline animation */
+.main-nav ul li a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: white;
+    width: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease; /* Smooth underline transition */
+}
+
+.main-nav ul li a:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+.main-nav ul li a.active::after {
+    width: 100%; /* Keep underline for active page */
 }
 
 /* Main Heading Section */

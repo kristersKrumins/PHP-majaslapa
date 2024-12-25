@@ -41,6 +41,11 @@ try {
                 }
             }
 
+             // Delete the folder if it exists and is empty
+            if (is_dir($eventFolder)) {
+                rmdir($eventFolder); // Remove the folder
+            }
+
             // Redirect after deletion
             header("Location: index.php?success=2");
             exit;
@@ -198,17 +203,17 @@ try {
                         <?php endfor; ?>
                     </div>
                     <input type="hidden" id="rating-input" name="rating" value="0">
-                    <textarea name="review" rows="4" placeholder="Your review..." required></textarea>
-                    <button type="submit">Submit Review</button>
+                    <textarea name="review" rows="4" placeholder="jūsu atsauksme..." required></textarea>
+                    <button type="submit">Pievienot atsauksmi</button>
                 </form>
                 <?php if (isset($error)): ?>
                     <p class="error"><?php echo htmlspecialchars($error); ?></p>
                 <?php endif; ?>
             <?php else: ?>
-                <p>Please <a href="login.php">log in</a> to write a review.</p>
+                <p>Lūdzu <a href="login.php">pieslēdzieties</a> ,lai rakstītu atsauksmes.</p>
             <?php endif; ?>
 
-            <h3>Reviews</h3>
+            <h3>Pievienotās atsauksmes</h3>
             <?php if (!empty($reviews)): ?>
                 <ul class="reviews-list">
                     <?php foreach ($reviews as $review): ?>
@@ -235,7 +240,7 @@ try {
                     <?php endforeach; ?>
                 </ul>
             <?php else: ?>
-                <p>No reviews yet.</p>
+                <p>Vēl nav nevienas atsauksmes.</p>
             <?php endif; ?>
         </section>
     </main>

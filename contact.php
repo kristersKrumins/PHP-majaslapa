@@ -14,7 +14,7 @@
             
         </div>
         <div class="logo-bar">
-            <h1>Children's Event Hosting</h1>
+            <h1>Kontakti</h1>
         </div>
         <nav class="main-nav">
             <ul>
@@ -42,14 +42,14 @@
 
         <section class="contact-info">
             <div class="contact-left">
-                <h2>Scribd HQ</h2>
+                <h2>Children's Event Hosting</h2>
                 <p>Zunda krastmala 10</p>
                 <p>Kurzemes rajons, Rīga</p>
                 <p>LV-1048</p>
                 <p>Latvija</p>
             </div>
             <div class="contact-right">
-                <h2>PIESEKO <span class="highlight">MUMS</span></h2>
+                <h2 class="rainbow-text">PIESEKO MUMS</h2>
                 <div class="social-icons">
                     <a href="https://facebook.com/rigastehniskauniversitate/?locale=lv_LV" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://x.com/RTU_DITF" target="_blank"><i class="fab fa-twitter"></i></a>

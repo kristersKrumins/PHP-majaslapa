@@ -70,10 +70,35 @@ header {
     color: white;
     font-weight: bold;
     font-size: 16px;
+    position: relative;
+    padding: 5px 0; /* Add some spacing for the underline animation */
+    transition: color 0.3s ease;
 }
 
 .main-nav a:hover {
-    text-decoration: underline;
+    color: #f0f0f0;
+}
+
+/* Add underline animation */
+.main-nav a::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: white;
+    width: 0; /* Start with no underline */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease; /* Smooth transition for the underline */
+}
+
+.main-nav ul li a:hover::after {
+    width: 100%; /* Expand underline on hover */
+}
+
+/* Highlight active link */
+.main-nav a.active::after {
+    width: 100%; /* Keep underline for the active page */
 }
 
 /* Contact Page Styling */
@@ -82,11 +107,21 @@ header {
     margin: 20px 0;
 }
 
+/* Rainbow Text Styling */
+.rainbow-text {
+    font-size: 20px;
+    font-weight: bold;
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
 .contact-info {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column; /* Stack items vertically */
     align-items: center;
-    flex-wrap: nowrap;
     padding: 20px;
     text-align: center;
     background-color: #f4f1f9;
@@ -94,27 +129,22 @@ header {
     margin: 20px;
 }
 
-/* Left Contact Info */
-.contact-left h2 {
-    color: #4e148c;
+.contact-left,
+.contact-right {
+    margin-bottom: 20px; /* Add spacing between sections */
+}
+
+.contact-left h2,
+.contact-right h2 {
     font-size: 20px;
+    color: #4e148c;
     margin-bottom: 10px;
 }
 
 .contact-left p {
-    color: #757575;
     font-size: 16px;
+    color: #757575;
     margin: 5px 0;
-}
-
-/* Right Contact Info with Highlight */
-.contact-right h2 {
-    color: #4e148c;
-    font-size: 20px;
-    margin-bottom: 10px;
-    text-align: center;
-    white-space: nowrap; /* Prevent text from breaking into multiple lines */
-    display: inline-block; /* Ensure proper centering */
 }
 
 .contact-right .highlight {
@@ -122,30 +152,31 @@ header {
     font-weight: bold;
 }
 
-/* Social Icons */
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 20px; /* Increase the gap between icons */
     margin-top: 10px;
 }
 
 .social-icons a {
     text-decoration: none;
     color: white;
-    font-size: 20px;
-    width: 40px;
-    height: 40px;
+    font-size: 25px; /* Increase the size of the icons */
+    width: 50px; /* Increase the width of the icons' container */
+    height: 50px; /* Increase the height of the icons' container */
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
+
 
 .social-icons a:hover {
     background-color: #ff80ab;
     color: white;
+    transform: scale(1.1); /* Add a slight zoom effect on hover */
 }
 
 .social-icons .fa-facebook-f {
