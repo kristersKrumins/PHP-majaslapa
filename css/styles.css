@@ -15,10 +15,15 @@ body {
     background-color: #4e148c;
     color: #fff;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     gap: 10px;
+}
+
+.top-bar .logo {
+    max-width: 200px; /* Adjust the size of the logo */
+    margin-left: 850px; /* Adjust the gap from the left */
 }
 
 .top-bar .user-info {
@@ -195,15 +200,21 @@ body {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;
-    width: 200px;
+    width: 300px; /* Increase width */
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slightly deeper shadow */
+    padding: 20px; /* Increase padding */
+    transition: transform 0.3s ease; /* Add a hover effect */
+}
+
+.event-card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 .event-card img {
     width: 100%;
     border-radius: 10px;
+    margin-bottom: 15px; /* Add space below the image */
 }
 
 .event-card h3 {
@@ -213,17 +224,17 @@ body {
 }
 
 .event-card p {
-    font-size: 14px;
+    font-size: 16px; /* Slightly larger description */
     color: #757575;
     margin: 10px 0;
 }
 
 .event-card .price {
-    font-size: 16px;
+    font-size: 18px; /* Larger price text */
     color: #ff4081;
     font-weight: bold;
     display: block;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 .event-card button {
@@ -302,3 +313,4 @@ footer {
 .delete-btn:hover {
     background-color: #ff80ab;
 }
+

@@ -88,17 +88,16 @@ try {
     <header>
         <!-- Top Bar -->
         <div class="top-bar">
-            <div class="right-info">
-                <?php if ($logged_in): ?>
-                    <div class="user-info">
-                        <a href="index.php?logout=true" class="logout-btn">Logout</a>
-                        <span>User: <?php echo htmlspecialchars($username); ?></span>
-                    </div>
-                <?php else: ?>
-                    <a href="login.php" class="login-btn">Login</a>
-                <?php endif; ?>
-            </div>
+        <img src="images/logo.png" alt="Website Logo" class="logo">
+        <div class="user-info">
+            <?php if ($logged_in): ?>
+                <a href="logout.php" class="logout-btn">Logout</a>
+                <span>User: <?php echo htmlspecialchars($username); ?></span>
+            <?php else: ?>
+                <a href="login.php" class="login-btn">Login</a>
+            <?php endif; ?>
         </div>
+    </div>
 
         <!-- Logo Bar -->
         <div class="logo-bar">

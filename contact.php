@@ -11,8 +11,9 @@
     <header>
         <!-- Top Section -->
         <div class="top-bar">
-            
-        </div>
+        <img src="images/logo.png" alt="Website Logo" class="logo">
+       
+    </div>
         <div class="logo-bar">
             <h1>Kontakti</h1>
         </div>

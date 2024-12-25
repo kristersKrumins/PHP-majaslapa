@@ -11,9 +11,14 @@ body {
     background-color: #4e148c;
     color: white;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+}
+
+.top-bar .logo {
+    max-width: 200px; /* Adjust the size of the logo */
+    margin-left: 850px; /* Adjust the gap from the left */
 }
 
 .top-bar .user-info {

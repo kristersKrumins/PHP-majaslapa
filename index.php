@@ -67,19 +67,19 @@ try {
 </head>
 <body>
     <header>
-        <div class="top-bar">
-            <div class="right-info">
-                <?php if ($logged_in): ?>
-                    <div class="user-info">
-                        <a href="index.php?logout=true" class="logout-btn">Logout</a>
-                        <span>User: <?php echo htmlspecialchars($username); ?></span>
-                    </div>
-                <?php else: ?>
-                    <a href="login.php" class="login-btn">Login</a>
-                <?php endif; ?>
-            </div>
+    <div class="top-bar">
+        <img src="images/logo.png" alt="Website Logo" class="logo">
+        <div class="user-info">
+            <?php if ($logged_in): ?>
+                <a href="index.php?logout=true" class="logout-btn">Logout</a>
+                <span>User: <?php echo htmlspecialchars($username); ?></span>
+            <?php else: ?>
+                <a href="login.php" class="login-btn">Login</a>
+            <?php endif; ?>
         </div>
+    </div>
         <div class="logo-bar">
+            
             <h1>Children's Event Hosting</h1>
         </div>
         <nav class="main-nav">
@@ -100,7 +100,7 @@ try {
         <?php endif; ?>
 
         <div class="main-heading">
-            <h2>Explore Fun Events for Kids!</h2>
+            
             <?php if ($logged_in && (int)$admin === 1): ?>
                 <a href="new_event.php" class="new-event-btn">Izveidot jaunu pasākumu</a>
             <?php endif; ?>
