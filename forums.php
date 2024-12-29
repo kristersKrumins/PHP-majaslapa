@@ -88,7 +88,7 @@ try {
     <header>
         <!-- Top Bar -->
         <div class="top-bar">
-        <img src="images/logo.png" alt="Website Logo" class="logo">
+            <img src="images/logo.png" alt="Website Logo" class="logo">
         <div class="user-info">
             <?php if ($logged_in): ?>
                 <a href="logout.php" class="logout-btn">Logout</a>

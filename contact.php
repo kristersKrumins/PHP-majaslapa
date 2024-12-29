@@ -11,11 +11,11 @@
     <header>
         <!-- Top Section -->
         <div class="top-bar">
-        <img src="images/logo.png" alt="Website Logo" class="logo">
+            <img src="images/logo.png" alt="Website Logo" class="logo">
        
     </div>
         <div class="logo-bar">
-            <h1>Kontakti</h1>
+            <h1>KONTAKTI</h1>
         </div>
         <nav class="main-nav">
             <ul>

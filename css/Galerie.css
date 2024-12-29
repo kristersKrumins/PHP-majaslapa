@@ -9,22 +9,32 @@ body {
 /* Top Bar Styling */
 .top-bar {
     background-color: #4e148c;
-    color: white;
+    color: #fff;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Maintains space between logo and user info */
     padding: 10px 20px;
+    min-height: 100px; /* Adjust to fit logo size */
+    position: relative;
+    overflow: visible; /* Ensures no clipping */
 }
 
 .top-bar .logo {
-    max-width: 200px; /* Adjust the size of the logo */
-    margin-left: 850px; /* Adjust the gap from the left */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 80px; /* Scale the logo height appropriately */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the entire logo fits */
 }
+
 
 .top-bar .user-info {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center-align items horizontally */
+    gap: 5px; /* Add spacing between the button and the username */
+    margin-left: auto;
 }
 
 .top-bar .user-info span {

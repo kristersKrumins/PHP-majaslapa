@@ -15,22 +15,30 @@ body {
     background-color: #4e148c;
     color: #fff;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Maintains space between logo and user info */
     padding: 10px 20px;
-    gap: 10px;
+    min-height: 100px; /* Adjust to fit logo size */
+    position: relative;
+    overflow: visible; /* Ensures no clipping */
 }
 
 .top-bar .logo {
-    max-width: 200px; /* Adjust the size of the logo */
-    margin-left: 850px; /* Adjust the gap from the left */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 80px; /* Scale the logo height appropriately */
+    width: auto; /* Maintain aspect ratio */
+    object-fit: contain; /* Ensure the entire logo fits */
 }
+
 
 .top-bar .user-info {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 5px;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center-align items horizontally */
+    gap: 5px; /* Add spacing between the button and the username */
+    margin-left: auto;
 }
 
 .top-bar .user-info span {
@@ -313,4 +321,184 @@ footer {
 .delete-btn:hover {
     background-color: #ff80ab;
 }
+
+.filter-form {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.filter-form form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.filter-form div {
+    flex: 1 1 100%; /* Default full width */
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-form label {
+    font-weight: bold;
+    color: #6a1b9a;
+    margin-bottom: 5px;
+}
+
+.filter-form input,
+.filter-form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.filter-form button {
+    background-color: #6a1b9a;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-form button:hover {
+    background-color: #4e148c;
+}
+
+@media (min-width: 768px) {
+    .filter-form div {
+        flex: 1 1 calc(50% - 15px); /* Two columns on larger screens */
+    }
+}
+
+/* General styling for checkbox groups */
+.category-options,
+.gender-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between checkboxes */
+    margin-top: 10px;
+}
+
+.category-options label,
+.gender-options label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #6a1b9a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Space between checkbox and label text */
+}
+
+.category-options input[type="checkbox"],
+.gender-options input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+/* Add hover effect to checkboxes */
+.category-options input[type="checkbox"]:hover + label,
+.gender-options input[type="checkbox"]:hover + label {
+    color: #4e148c;
+}
+
+/* Checked state styling */
+.category-options input[type="checkbox"]:checked + label,
+.gender-options input[type="checkbox"]:checked + label {
+    color: #4e148c;
+    font-weight: bold;
+}
+
+/* Styling the range-slider container */
+.range-slider {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+}
+
+/* Styling the track (white line between handles) */
+.range-slider .slider-track {
+    position: absolute;
+    height: 6px;
+    background: rgb(0, 0, 0);
+    top: 50%; /* Center the track vertically */
+    transform: translateY(-50%);
+    z-index: 1; /* Ensure it appears beneath the handles */
+    border-radius: 3px; /* Smooth edges */
+    pointer-events: none; /* Ensure the track does not block slider interactions */
+}
+
+/* Styling the input sliders */
+.range-slider input[type="range"] {
+    -webkit-appearance: none; /* Remove default appearance for Chrome/Safari */
+    -moz-appearance: none; /* Remove default appearance for Firefox */
+    appearance: none; /* Remove default appearance */
+    width: 100%;
+    height: 6px; /* Match the track height */
+    background: transparent; /* No border or background */
+    position: absolute;
+    margin: 0; /* Remove default margins */
+    pointer-events: auto; /* Make the slider interactive */
+}
+
+/* Ensure the min-age slider is always on top when active */
+.range-slider input[type="range"]:focus {
+    z-index: 3; /* Bring the focused slider to the top */
+}
+
+/* Styling the slider thumb (handles) */
+.range-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default appearance for Chrome/Safari */
+    appearance: none; /* Remove default appearance */
+    width: 16px;
+    height: 16px;
+    background: #6a1b9a; /* Handle color */
+    border-radius: 50%; /* Circle shape */
+    cursor: pointer; /* Indicate interactivity */
+    position: relative;
+    top: 50%; /* Center align the thumb */
+    transform: translateY(-50%); /* Adjust position vertically */
+    z-index: 3; /* Ensure the handle is above everything else */
+}
+
+.range-slider input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #6a1b9a;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    top: 50%; /* Center align the thumb */
+    transform: translateY(-50%); /* Adjust position vertically */
+    z-index: 3; /* Ensure the handle is above everything else */
+}
+
+.range-slider input[type="range"]::-ms-thumb {
+    width: 16px;
+    height: 16px;
+    background: #6a1b9a;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    top: 50%; /* Center align the thumb */
+    transform: translateY(-50%); /* Adjust position vertically */
+    z-index: 3; /* Ensure the handle is above everything else */
+}
+
+/* Styling the range display */
+.range-display {
+    text-align: center; /* Center-align the text */
+    font-size: 16px; /* Larger font for readability */
+    font-weight: bold; /* Make the text bold */
+    color: #6a1b9a; /* Match the theme color */
+    margin-top: 10px; /* Add space above the display text */
+}
+
 

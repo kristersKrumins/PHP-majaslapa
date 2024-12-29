@@ -177,10 +177,20 @@ try {
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
-            <h2><?php echo htmlspecialchars($event['NOSAUKUMS']); ?></h2>
+            <h1><?php echo htmlspecialchars($event['NOSAUKUMS']); ?></h1>
             <p><?php echo htmlspecialchars($event['APRAKSTS']); ?></p>
+            
             <h2>Cena</h2>
             <p>€<?php echo htmlspecialchars($event['CENA']); ?></p>
+
+            <h2>Vecuma diapazons</h2>
+            <p> No <?php echo htmlspecialchars($event['VECUMS']); ?> līdz <?php echo htmlspecialchars($event['VECUMS2']); ?> gadiem</p>
+
+            <h2>Dzimums</h2>
+            <p><?php echo htmlspecialchars($event['DZIMUMS']); ?></p>
+
+            <h2>Kategorija</h2>
+            <p><?php echo htmlspecialchars($event['KATEGORIJA']); ?></p>
             <div class="action-buttons">
                 <a href="index.php" class="back-btn">Atpakaļ</a>
                 <?php if ($logged_in && (int)$admin === 1): ?>

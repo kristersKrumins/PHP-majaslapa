@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $age_min = $_POST['age_min'];
     $age_max = $_POST['age_max'];
     $gender = $_POST['gender'];
+    $category = $_POST['category'];
 
     try {
         $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
@@ -95,10 +96,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label for="both">Abi</label>
 </div>
 
+<label for="category">Kategorija:</label>
+<div class="category-options">
+    <input type="radio" id="birthday" name="category" value="Dzimšanas diena">
+    <label for="birthday">Dzimšanas diena</label>
+
+    <input type="radio" id="corporate" name="category" value="Korporatīvais">
+    <label for="corporate">Korporatīvais</label>
+
+    <input type="radio" id="wedding" name="category" value="Kāzas">
+    <label for="wedding">Kāzas</label>
+
+    <input type="radio" id="other" name="category" value="Cits">
+    <label for="other">Cits</label>
+
+    <input type="radio" id="other" name="category" value="Cits">
+    <label for="other">Cits</label>
+</div>
+
     <label for="images">Pievieno bildes:</label>
     <input type="file" id="images" name="images[]" accept="image/*" multiple required>
 
     <button type="submit">Saglabāt pasākumu</button>
+    
 </form>
 
     </main>

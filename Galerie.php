@@ -30,7 +30,7 @@ if (!$images) {
     <header>
         <!-- Top Bar -->
         <div class="top-bar">
-        <img src="images/logo.png" alt="Website Logo" class="logo">
+            <img src="images/logo.png" alt="Website Logo" class="logo">
         </div>
     </div>
 
