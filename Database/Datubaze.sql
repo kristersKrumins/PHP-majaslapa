@@ -7,7 +7,8 @@ CREATE TABLE events (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     VECUMS INT(2) NOT NULL,
     VECUMS2 INT(2) NOT NULL,
-    DZIMUMS VARCHAR(25) NOT NULL
+    DZIMUMS VARCHAR(25) NOT NULL,
+    KATEGORIJA VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE forum_posts (
@@ -42,4 +43,12 @@ CREATE TABLE atsauksmes (
     atsauksme TEXT,
     reitings INT CHECK (reitings BETWEEN 1 AND 5),
     datums DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE notifications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,          -- which user "owns" the notification
+  message TEXT,         -- notification text
+  status VARCHAR(20),   -- e.g. 'pending', 'accepted', 'rejected'
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
