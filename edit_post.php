@@ -28,12 +28,12 @@ try {
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$post) {
-        die("Post not found. <a href='forums.php'>Go back</a>");
+        die("Ierasksts nav atrasts. <a href='forums.php'>Doties atpakaļ</a>");
     }
 
     // Ensure the logged-in user is the creator of the post
     if ($post['username'] !== $username) {
-        die("You are not authorized to edit this post. <a href='forums.php'>Go back</a>");
+        die("Jums nav atļauja reģidēt šo rakstu. <a href='forums.php'>Iet atpakaļ</a>");
     }
 
     // Handle post update
@@ -51,7 +51,7 @@ try {
             header("Location: forums.php?success=edit");
             exit;
         } else {
-            $error = "Title and content cannot be empty.";
+            $error = "Virsraksts un saturs nedrīkst būt tukšs.";
         }
     }
 } catch (PDOException $e) {

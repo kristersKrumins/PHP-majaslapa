@@ -1,10 +1,17 @@
 <?php
 session_start();
 require_once 'Database/config.php';
-
+if (isset($_GET['logout'])) {
+    session_destroy();
+    session_unset();
+    header("Location: forums.php");
+    exit;
+}
 // Check if the user is logged in
 $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
-$username = $logged_in ? $_SESSION['username'] : null;
+$username  = $logged_in ? $_SESSION['username'] : null;
+// If you track admin status
+$admin     = isset($_SESSION['admin']) ? (int)$_SESSION['admin'] : 0;
 
 try {
     // Database connection
@@ -15,32 +22,38 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post']) && $logged_in) {
         $post_id_to_delete = (int)$_POST['delete_post'];
 
-        // Verify ownership of the post
+        // Fetch the post's username to check ownership
         $stmt = $pdo->prepare("SELECT username FROM forum_posts WHERE id = :id");
         $stmt->execute([':id' => $post_id_to_delete]);
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($post && $post['username'] === $username) {
-            $stmt = $pdo->prepare("DELETE FROM forum_posts WHERE id = :id");
-            $stmt->execute([':id' => $post_id_to_delete]);
-            header("Location: forums.php");
-            exit;
-        } else {
-            $error = "You are not authorized to delete this post.";
+        if ($post) {
+            // Check if the user is the post's author OR an admin
+            if ($post['username'] === $username || $admin === 1) {
+                $stmt = $pdo->prepare("DELETE FROM forum_posts WHERE id = :id");
+                $stmt->execute([':id' => $post_id_to_delete]);
+                header("Location: forums.php");
+                exit;
+            } else {
+                $error = "You are not authorized to delete this post.";
+            }
         }
     }
 
     // Handle new post submission
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_POST['content']) && $logged_in) {
-        $title = trim($_POST['title']);
+        $title   = trim($_POST['title']);
         $content = trim($_POST['content']);
 
         if (!empty($title) && !empty($content)) {
-            $stmt = $pdo->prepare("INSERT INTO forum_posts (username, title, content) VALUES (:username, :title, :content)");
+            $stmt = $pdo->prepare("
+                INSERT INTO forum_posts (username, title, content)
+                VALUES (:username, :title, :content)
+            ");
             $stmt->execute([
                 ':username' => $username,
-                ':title' => $title,
-                ':content' => $content
+                ':title'    => $title,
+                ':content'  => $content
             ]);
             header("Location: forums.php");
             exit;
@@ -52,6 +65,7 @@ try {
     // Fetch all posts
     $stmt = $pdo->query("SELECT * FROM forum_posts ORDER BY created_at DESC");
     $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (PDOException $e) {
     die("Database error: " . $e->getMessage());
 }
@@ -89,15 +103,15 @@ try {
         <!-- Top Bar -->
         <div class="top-bar">
             <img src="images/logo.png" alt="Website Logo" class="logo">
-        <div class="user-info">
-            <?php if ($logged_in): ?>
-                <a href="logout.php" class="logout-btn">Logout</a>
-                <span>User: <?php echo htmlspecialchars($username); ?></span>
-            <?php else: ?>
-                <a href="login.php" class="login-btn">Login</a>
-            <?php endif; ?>
+            <div class="user-info">
+                <?php if ($logged_in): ?>
+                    <a href="forums.php?logout=1" class="logout-btn">Logout</a>
+                    <span>User: <?php echo htmlspecialchars($username); ?></span>
+                <?php else: ?>
+                    <a href="login.php" class="login-btn">Login</a>
+                <?php endif; ?>
+            </div>
         </div>
-    </div>
 
         <!-- Logo Bar -->
         <div class="logo-bar">
@@ -111,9 +125,8 @@ try {
                 <li><a href="forums.php">Forums</a></li>
                 <li><a href="Galerie.php">Galerija</a></li>
                 <li><a href="contact.php">Kontakti</a></li>
-             </ul>
+            </ul>
         </nav>
-
     </header>
 
     <main>
@@ -131,7 +144,7 @@ try {
                     <p class="error"><?php echo htmlspecialchars($error); ?></p>
                 <?php endif; ?>
             <?php else: ?>
-                <p>Nepieciešams <a href="login.php">pierakstīties</a> , lai izveidotu ierakstu.</p>
+                <p>Nepieciešams <a href="login.php">pierakstīties</a>, lai izveidotu ierakstu.</p>
             <?php endif; ?>
         </section>
 
@@ -142,19 +155,28 @@ try {
                     <?php foreach ($posts as $post): ?>
                         <li>
                             <div class="post-header">
-                                <h3><a href="forum_post.php?id=<?php echo htmlspecialchars($post['id']); ?>"><?php echo htmlspecialchars($post['title']); ?></a></h3>
-                                <div class="dropdown">
-                                    <button class="dropdown-btn">⋮</button>
-                                    <div class="dropdown-menu">
-                                        <form method="post" class="dropdown-form">
-                                            <input type="hidden" name="delete_post" value="<?php echo htmlspecialchars($post['id']); ?>">
-                                            <button type="submit" class="dropdown-item">Dzēst</button>
-                                        </form>
-                                        <a href="edit_post.php?id=<?php echo htmlspecialchars($post['id']); ?>" class="dropdown-item">Reģidēt</a>
+                                <h3>
+                                    <a href="forum_post.php?id=<?php echo htmlspecialchars($post['id']); ?>">
+                                        <?php echo htmlspecialchars($post['title']); ?>
+                                    </a>
+                                </h3>
+                                <?php
+                                // Show the dropdown only if logged in AND user is the author or admin
+                                if ($logged_in && ($admin === 1 || $post['username'] === $username)) {
+                                    ?>
+                                    <div class="dropdown">
+                                        <button class="dropdown-btn">⋮</button>
+                                        <div class="dropdown-menu">
+                                            <form method="post" class="dropdown-form">
+                                                <input type="hidden" name="delete_post" value="<?php echo htmlspecialchars($post['id']); ?>">
+                                                <button type="submit" class="dropdown-item">Dzēst</button>
+                                            </form>
+                                            <a href="edit_post.php?id=<?php echo htmlspecialchars($post['id']); ?>" class="dropdown-item">Reģidēt</a>
+                                        </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                             </div>
-
+                            <!-- Optionally show post excerpt or content snippet here if you'd like -->
                         </li>
                     <?php endforeach; ?>
                 </ul>

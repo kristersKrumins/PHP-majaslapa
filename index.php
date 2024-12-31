@@ -69,8 +69,8 @@ if ($logged_in) {
                        u.username   AS requestor_name,
                        e.NOSAUKUMS  AS event_name
                   FROM notifications n
-             LEFT JOIN users   u ON n.user_id  = u.id
-             LEFT JOIN events  e ON n.event_id = e.id
+             LEFT JOIN users  u ON n.user_id  = u.id
+             LEFT JOIN events e ON n.event_id = e.id
               ORDER BY n.created_at DESC
             ";
             $stm = $pdo->prepare($sql);
@@ -121,15 +121,21 @@ if (!empty($_GET['name'])) {
     $params[':n'] = '%'.$_GET['name'].'%';
 }
 
-// Price
-if (!empty($_GET['price'])) {
-    $query .= " AND CENA <= :p";
-    $params[':p'] = (float)$_GET['price'];
+// Price (ignore negative => treat it as 0 if user typed negative)
+if (isset($_GET['price'])) {
+    $price = (float)$_GET['price'];
+    if ($price > 0) {
+        $query .= " AND CENA <= :p";
+        $params[':p'] = $price;
+    }
 }
 
-// Age
-$minAge = !empty($_GET['min_age']) ? (int)$_GET['min_age'] : 0;
-$maxAge = !empty($_GET['max_age']) ? (int)$_GET['max_age'] : 0;
+// Age (ignore negative => treat them as 0)
+$minAge = isset($_GET['min_age']) ? (int)$_GET['min_age'] : 0;
+$maxAge = isset($_GET['max_age']) ? (int)$_GET['max_age'] : 0;
+
+if ($minAge < 0) $minAge = 0;
+if ($maxAge < 0) $maxAge = 0;
 
 if ($minAge > 0 && $maxAge > 0) {
     $query .= " AND VECUMS <= :minAge AND VECUMS2 >= :maxAge";
@@ -208,7 +214,6 @@ try {
         const notifBtn = document.getElementById('notification-btn');
         const notifDrop= document.getElementById('notification-dropdown');
         
-        // Insert code to mark user notifications as read via AJAX 
         const isAdmin = <?php echo json_encode($admin === 1); ?>;
 
         if (notifBtn && notifDrop) {
@@ -221,7 +226,6 @@ try {
                       .then(response => response.json())
                       .then(data => {
                           if (data.success) {
-                              // Hide the badge
                               const badge = document.querySelector('.badge');
                               if (badge) {
                                   badge.remove();
@@ -353,23 +357,32 @@ try {
             </div>
 
             <!-- Event Grid -->
+            <?php if (!empty($events)): ?>
             <div class="event-grid">
                 <?php foreach ($events as $ev): ?>
                     <?php
                     $eventFolder = 'images/event_'.$ev['id'].'/';
                     $imgs = glob($eventFolder.'*');
                     $firstImg = $imgs ? $imgs[0] : 'placeholder.jpg';
+                    $truncatedDescription = (strlen($ev['APRAKSTS']) > 20) 
+                        ? substr($ev['APRAKSTS'], 0, 100) . '...' 
+                        : $ev['APRAKSTS'];
                     ?>
                     <div class="event-card">
                         <a href="events.php?id=<?php echo htmlspecialchars($ev['id']); ?>">
                             <img src="<?php echo $firstImg; ?>" alt="<?php echo htmlspecialchars($ev['NOSAUKUMS']); ?>">
                             <h3><?php echo htmlspecialchars($ev['NOSAUKUMS']); ?></h3>
                         </a>
-                        <p><?php echo htmlspecialchars($ev['APRAKSTS']); ?></p>
+                        <p><?php echo htmlspecialchars($truncatedDescription); ?></p>
                         <span class="price">€<?php echo htmlspecialchars($ev['CENA']); ?></span>
                     </div>
                 <?php endforeach; ?>
             </div>
+            <?php else: ?>
+            <p style="text-align:center; font-size:18px; color:#f00; margin-top:20px;">
+                Nav pieejami pasākumi ar šādām prasībām
+            </p>
+            <?php endif; ?>
         </div>
 
         <!-- SIDEBAR Filter -->
@@ -400,20 +413,36 @@ try {
                         <label for="category">Kategorija:</label>
                         <div class="category-options">
                             <div class="checkbox-item">
-                                <input type="checkbox" id="birthday" name="category[]" value="Dzimšanas diena">
-                                <label for="birthday">Dzimšanas diena</label>
+                                <input type="checkbox" id="Maģija" name="category[]" value="Maģija">
+                                <label for="Maģija">Maģija</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="corporate" name="category[]" value="Korporatīvais">
-                                <label for="corporate">Korporatīvais</label>
+                                <input type="checkbox" id="Princeses" name="category[]" value="Princeses">
+                                <label for="Princeses">Princeses</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="wedding" name="category[]" value="Kāzas">
-                                <label for="wedding">Kāzas</label>
+                                <input type="checkbox" id="Kovboji" name="category[]" value="Kovboji">
+                                <label for="Kovboji">Kovboji</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" id="other" name="category[]" value="Cits">
-                                <label for="other">Cits</label>
+                                <input type="checkbox" id="Pirāti" name="category[]" value="Pirāti">
+                                <label for="Pirāti">Pirāti</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Klauni" name="category[]" value="Klauni">
+                                <label for="Klauni">Klauni</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Disko" name="category[]" value="Disko">
+                                <label for="Disko">Disko</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Ziemassvētki" name="category[]" value="Ziemassvētki">
+                                <label for="Ziemassvētki">Ziemassvētki</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Burbuļi" name="category[]" value="Burbuļi">
+                                <label for="Burbuļi">Burbuļi</label>
                             </div>
                         </div>
                     </div>

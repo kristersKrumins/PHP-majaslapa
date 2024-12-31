@@ -98,20 +98,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <label for="category">Kategorija:</label>
 <div class="category-options">
-    <input type="radio" id="birthday" name="category" value="Dzimšanas diena">
-    <label for="birthday">Dzimšanas diena</label>
+    <input type="radio" id="Maģija" name="category" value="Maģija">
+    <label for="Maģija">Maģija</label>
 
-    <input type="radio" id="corporate" name="category" value="Korporatīvais">
-    <label for="corporate">Korporatīvais</label>
+    <input type="radio" id="Princeses" name="category" value="Princeses">
+    <label for="Princeses">Princeses</label>
 
-    <input type="radio" id="wedding" name="category" value="Kāzas">
-    <label for="wedding">Kāzas</label>
+    <input type="radio" id="Kovboji" name="category" value="Kovboji">
+    <label for="Kovboji">Kovboji</label>
 
-    <input type="radio" id="other" name="category" value="Cits">
-    <label for="other">Cits</label>
+    <input type="radio" id="Pirāti" name="category" value="Pirāti">
+    <label for="Pirāti">Pirāti</label>
 
-    <input type="radio" id="other" name="category" value="Cits">
-    <label for="other">Cits</label>
+    <input type="radio" id="Klauni" name="category" value="Klauni">
+    <label for="Klauni">Klauni</label>
+
+    <input type="radio" id="Disko" name="category" value="Disko">
+    <label for="Disko">Disko</label>
+
+    <input type="radio" id="Ziemassvētki" name="category" value="Ziemassvētki">
+    <label for="Ziemassvētki">Ziemassvētki</label>
+
+    <input type="radio" id="Burbuļi" name="category" value="Burbuļi">
+    <label for="Burbuļi">Burbuļi</label>
+
 </div>
 
     <label for="images">Pievieno bildes:</label>
