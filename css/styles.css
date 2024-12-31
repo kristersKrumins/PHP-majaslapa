@@ -48,9 +48,9 @@ body {
     gap: 10px;
 }
 
-/* Buttons */
-.logout-btn {
-    background-color: #ff4081;
+/* Logout/Login Buttons */
+.logout-btn,
+.login-btn {
     padding: 8px 20px;
     border-radius: 20px;
     color: #fff;
@@ -59,6 +59,10 @@ body {
     border: none;
     text-align: center;
     transition: background-color 0.3s ease;
+}
+
+.logout-btn {
+    background-color: #ff4081;
 }
 
 .logout-btn:hover {
@@ -67,14 +71,6 @@ body {
 
 .login-btn {
     background-color: #03df15;
-    padding: 8px 20px;
-    border-radius: 20px;
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    border: none;
-    text-align: center;
-    transition: background-color 0.3s ease;
 }
 
 .login-btn:hover {
@@ -131,7 +127,7 @@ body {
     color: #f0f0f0;
 }
 
-/* Content Wrapper: main + sidebar */
+/* Content Wrapper */
 .content-wrapper {
     display: flex;
     flex-direction: row;
@@ -153,7 +149,7 @@ body {
     background-color: rgba(255, 255, 255, 0.8);
     margin-left: 20px;
     margin-right: 50px;
-    margin-top: 100px; 
+    margin-top: 100px;
     position: relative;
     z-index: 9999;
 }
@@ -381,13 +377,13 @@ footer {
 
 .notif-item {
     margin: 5px 0;
-    color: #000; /* black text for visibility */
+    color: #000;
 }
 
 .notif-item p {
     margin: 5px 0;
     font-size: 14px;
-    color: #000; /* black text */
+    color: #000;
 }
 
 .notif-item small {

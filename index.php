@@ -26,7 +26,6 @@ try {
 
 /************************************************************
  * (1) ADMIN ACCEPT/REJECT => sets status
- *     Optionally reset seen_by_user=0 so user sees new status.
  ************************************************************/
 if ($logged_in && $admin === 1 && isset($_GET['notif_id']) && isset($_GET['action'])) {
     $notif_id = (int)$_GET['notif_id'];
@@ -38,7 +37,7 @@ if ($logged_in && $admin === 1 && isset($_GET['notif_id']) && isset($_GET['actio
                SET status        = 'accepted',
                    seen_by_admin = 1,
                    seen_by_user  = 0
-             WHERE id            = :id
+             WHERE id = :id
         ");
         $stm->execute([':id' => $notif_id]);
     } elseif ($action === 'reject') {
@@ -47,7 +46,7 @@ if ($logged_in && $admin === 1 && isset($_GET['notif_id']) && isset($_GET['actio
                SET status        = 'rejected',
                    seen_by_admin = 1,
                    seen_by_user  = 0
-             WHERE id            = :id
+             WHERE id = :id
         ");
         $stm->execute([':id' => $notif_id]);
     }
@@ -78,7 +77,6 @@ if ($logged_in) {
             $stm->execute();
             $notifications = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-            // Count how many are unread for admin => (if you have separate columns)
             foreach ($notifications as $nt) {
                 if ($nt['seen_by_admin'] == 0) {
                     $unseenCount++;
@@ -100,7 +98,6 @@ if ($logged_in) {
             $stm->execute([':uid' => $user_id]);
             $notifications = $stm->fetchAll(PDO::FETCH_ASSOC);
 
-            // Count how many are unread for user => (if you have separate columns)
             foreach ($notifications as $nt) {
                 if ($nt['seen_by_user'] == 0) {
                     $unseenCount++;
@@ -118,52 +115,35 @@ if ($logged_in) {
 $query  = "SELECT * FROM events WHERE 1=1";
 $params = [];
 
-// -------------- Name filter --------------
+// Name
 if (!empty($_GET['name'])) {
     $query .= " AND NOSAUKUMS LIKE :n";
     $params[':n'] = '%'.$_GET['name'].'%';
 }
 
-// -------------- Max Price --------------
+// Price
 if (!empty($_GET['price'])) {
     $query .= " AND CENA <= :p";
     $params[':p'] = (float)$_GET['price'];
 }
 
-// -------------- Age Filter --------------
+// Age
 $minAge = !empty($_GET['min_age']) ? (int)$_GET['min_age'] : 0;
 $maxAge = !empty($_GET['max_age']) ? (int)$_GET['max_age'] : 0;
 
-/**
- * The logic is:
- *  if both minAge and maxAge are > 0, we want events whose [VECUMS..VECUMS2] fully includes [minAge..maxAge].
- *    => event.VECUMS <= :minAge
- *       AND event.VECUMS2 >= :maxAge
- *
- *  if only minAge => we ensure minAge is in [VECUMS..VECUMS2].
- *    => event.VECUMS <= :minAge <= event.VECUMS2
- *
- *  if only maxAge => we ensure maxAge is in [VECUMS..VECUMS2].
- *    => event.VECUMS <= :maxAge <= event.VECUMS2
- */
 if ($minAge > 0 && $maxAge > 0) {
-    // user provided both => event range must include [minAge..maxAge]
     $query .= " AND VECUMS <= :minAge AND VECUMS2 >= :maxAge";
     $params[':minAge'] = $minAge;
     $params[':maxAge'] = $maxAge;
-
 } elseif ($minAge > 0 && $maxAge == 0) {
-    // only minAge => minAge is in [VECUMS..VECUMS2]
     $query .= " AND :minAge BETWEEN VECUMS AND VECUMS2";
     $params[':minAge'] = $minAge;
-
 } elseif ($maxAge > 0 && $minAge == 0) {
-    // only maxAge => maxAge is in [VECUMS..VECUMS2]
     $query .= " AND :maxAge BETWEEN VECUMS AND VECUMS2";
     $params[':maxAge'] = $maxAge;
 }
 
-// -------------- Gender checkboxes --------------
+// Gender
 if (!empty($_GET['gender']) && is_array($_GET['gender'])) {
     $phArr = [];
     foreach ($_GET['gender'] as $i => $g) {
@@ -177,7 +157,7 @@ if (!empty($_GET['gender']) && is_array($_GET['gender'])) {
     }
 }
 
-// -------------- Category checkboxes --------------
+// Category
 if (!empty($_GET['category']) && is_array($_GET['category'])) {
     $catArr = [];
     foreach ($_GET['category'] as $i => $cat) {
@@ -191,7 +171,7 @@ if (!empty($_GET['category']) && is_array($_GET['category'])) {
     }
 }
 
-// Exec the final query
+// Exec
 try {
     $stm2 = $pdo->prepare($query);
     $stm2->execute($params);
@@ -206,8 +186,6 @@ try {
     <meta charset="UTF-8">
     <title>Children's Event Hosting</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
 
     <script>
@@ -225,6 +203,41 @@ try {
                 }, 1000);
             }, 5000);
         }
+
+        // Toggle notification dropdown
+        const notifBtn = document.getElementById('notification-btn');
+        const notifDrop= document.getElementById('notification-dropdown');
+        
+        // Insert code to mark user notifications as read via AJAX 
+        const isAdmin = <?php echo json_encode($admin === 1); ?>;
+
+        if (notifBtn && notifDrop) {
+            notifBtn.addEventListener('click', () => {
+                notifDrop.classList.toggle('show');
+                
+                // If not admin => mark user's notifications as seen
+                if (!isAdmin) {
+                    fetch('mark_seen_user.php')
+                      .then(response => response.json())
+                      .then(data => {
+                          if (data.success) {
+                              // Hide the badge
+                              const badge = document.querySelector('.badge');
+                              if (badge) {
+                                  badge.remove();
+                              }
+                          }
+                      })
+                      .catch(err => console.log(err));
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!notifBtn.contains(e.target) && !notifDrop.contains(e.target)) {
+                    notifDrop.classList.remove('show');
+                }
+            });
+        }
     });
     </script>
 </head>
@@ -234,10 +247,8 @@ try {
             <img src="images/logo.png" alt="Logo" class="logo">
 
             <?php if ($logged_in): ?>
-                <!-- USER INFO RIGHT -->
                 <div class="user-info">
                     <div class="user-info-top-row">
-                        <!-- NOTIFICATION BELL -->
                         <div class="notification-container">
                             <button id="notification-btn" class="notification-btn">
                                 <span class="bell-icon">&#128276;</span>
@@ -258,18 +269,16 @@ try {
                                         $status    = $nt['status'];
                                         $nid       = $nt['id'];
 
-                                        // Translate the status to Latvian
+                                        // Latvian status
+                                        $lvStatus = 'Statuss: Noliegts';
                                         if ($status === 'pending') {
                                             $lvStatus = 'Statuss: Apstrādā';
                                         } elseif ($status === 'accepted') {
                                             $lvStatus = 'Statuss: Apstiprināts';
-                                        } else {
-                                            $lvStatus = 'Statuss: Noliegts';
                                         }
                                         ?>
                                         <div class="notif-item">
                                             <?php
-                                            // Admin vs user text
                                             if ($admin === 1) {
                                                 if ($status === 'pending') {
                                                     echo "<p><strong>Lietotājs $userName</strong> vēlas pieteikties uz <strong>$eventName</strong></p>";
@@ -279,7 +288,6 @@ try {
                                                     echo "<p><strong>$userName</strong> ir noraidīts pasākumam <strong>$eventName</strong></p>";
                                                 }
                                             } else {
-                                                // user sees simpler text
                                                 if ($status === 'pending') {
                                                     echo "<p>Jūsu pieprasījums pievienoties <strong>$eventName</strong> ir apstrādē.</p>";
                                                 } elseif ($status === 'accepted') {
@@ -289,7 +297,6 @@ try {
                                                 }
                                             }
                                             ?>
-                                            <!-- Print the Latvian status line -->
                                             <small><?php echo htmlspecialchars($lvStatus); ?></small>
 
                                             <?php if ($admin === 1 && $status === 'pending'): ?>

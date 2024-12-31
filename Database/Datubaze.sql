@@ -46,9 +46,12 @@ CREATE TABLE atsauksmes (
 );
 
 CREATE TABLE notifications (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT,          -- which user "owns" the notification
-  message TEXT,         -- notification text
-  status VARCHAR(20),   -- e.g. 'pending', 'accepted', 'rejected'
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    user_id INT(11) DEFAULT NULL,
+    event_id INT(11) DEFAULT NULL,
+    message TEXT,
+    status VARCHAR(20) DEFAULT NULL,
+    seen_by_user TINYINT(1) DEFAULT 0,
+    seen_by_admin TINYINT(1) DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
