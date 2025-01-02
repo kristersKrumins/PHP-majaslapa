@@ -2,32 +2,32 @@
 session_start();
 require_once 'Database/config.php';
 
-// Check if the user is logged in
+// Pārbaudīt, vai lietotājs ir pieteicies
 $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 $username = $logged_in ? $_SESSION['username'] : null;
 
-// Ensure the post ID is provided
+// Pārliecināties, vai ir norādīts ieraksta ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    die("No post ID provided. <a href='forums.php'>Go back</a>");
+    die("Nav norādīts ieraksta ID. <a href='forums.php'>Doties atpakaļ</a>");
 }
 
 $post_id = (int)$_GET['id'];
 
 try {
-    // Database connection
+    // Savienojums ar datu bāzi
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Fetch the post details
+    // Iegūt ieraksta detaļas
     $stmt = $pdo->prepare("SELECT * FROM forum_posts WHERE id = :id");
     $stmt->execute([':id' => $post_id]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$post) {
-        die("Post not found. <a href='forums.php'>Go back</a>");
+        die("Ieraksts nav atrasts. <a href='forums.php'>Doties atpakaļ</a>");
     }
 
-    // Handle new reply submission
+    // Apstrādāt jaunas atbildes iesniegšanu
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $logged_in) {
         $reply = trim($_POST['reply']);
         if (!empty($reply)) {
@@ -40,16 +40,16 @@ try {
             header("Location: forum_post.php?id=$post_id");
             exit;
         } else {
-            $error = "Reply cannot be empty.";
+            $error = "Atbilde nedrīkst būt tukša.";
         }
     }
 
-    // Fetch all replies for the post
+    // Iegūt visas atbildes uz šo ierakstu
     $stmt = $pdo->prepare("SELECT * FROM forum_replies WHERE post_id = :post_id ORDER BY created_at DESC");
     $stmt->execute([':post_id' => $post_id]);
     $replies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
+    die("Datu bāzes kļūda: " . $e->getMessage());
 }
 ?>
 
@@ -111,4 +111,3 @@ try {
     </main>
 </body>
 </html>
-

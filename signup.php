@@ -33,7 +33,7 @@ require './Database/db.php';
                 </div>
                 
                 <div class="signupbtn">
-                <button type="submit" name="submit">Reģistrēties</button>
+                    <button type="submit" name="submit">Reģistrēties</button>
                 </div>
             </form>
         </div>
@@ -41,8 +41,8 @@ require './Database/db.php';
             <?php
             if (isset($_POST["submit"])) {
                 if (!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["repassword"])) {
-                    $username = $_POST["username"];
-                    $password = $_POST["password"];
+                    $username   = $_POST["username"];
+                    $password   = $_POST["password"];
                     $repassword = $_POST["repassword"];
 
                     if ($password !== $repassword) {
@@ -50,36 +50,55 @@ require './Database/db.php';
                         return;
                     }
 
-                    // Check if the username already exists
+                    // Pārbaudīt, vai lietotājvārds jau eksistē
                     $sql = "SELECT * FROM users WHERE username='$username'";
                     $result = mysqli_query($conn, $sql);
 
                     if (!$result) {
-                        echo "Query error: " . mysqli_error($conn);
+                        echo "Vaicājuma kļūda: " . mysqli_error($conn);
                         return;
                     }
 
                     if (mysqli_num_rows($result) > 0) {
                         echo "*Lietotājvārds jau eksistē*";
                     } else {
+                        // Šifrēt paroli
                         $hash = password_hash($password, PASSWORD_DEFAULT);
+
+                        // Ievietot jauno lietotāju. Ja vēlaties iestatīt 'admin' uz 0 vai 1 pēc noklusējuma,
+                        // pielāgojiet laukus atbilstoši. Piemēram:
+                        // $sql_insert = "INSERT INTO users (username, password, admin) 
+                        //               VALUES ('$username', '$hash', 0)";
                         $sql_insert = "INSERT INTO users (username, password) VALUES ('$username', '$hash')";
 
                         if (mysqli_query($conn, $sql_insert)) {
-                            // Automatically log in the user
-                            $_SESSION['logged_in'] = true;
-                            $_SESSION['username'] = $username;
+                            
+                            // Tagad iegūt tikko izveidoto lietotāju, lai dabūtu id & admin
+                            $newUserQuery = "SELECT * FROM users WHERE username='$username'";
+                            $newUserResult = mysqli_query($conn, $newUserQuery);
 
-                            // Show success message
-                            echo "<div class='success-message'>Reģistrācija veiksmīga! Tiekat novirzīts uz sākumlapu...</div>";
+                            if ($newUserResult && mysqli_num_rows($newUserResult) > 0) {
+                                $row = mysqli_fetch_assoc($newUserResult);
+                                
+                                // Iestatīt sesijas mainīgos, tāpat kā pieteikšanās procesā
+                                $_SESSION['logged_in'] = true;
+                                $_SESSION['username']  = $row['username'];
+                                $_SESSION['admin']     = (int)$row['admin']; // Pārliecinieties, ka jums ir 'admin' kolonna
+                                $_SESSION['user_id']   = $row['id'];
 
-                            // Redirect after 3 seconds
-                            echo "<script>
-                                setTimeout(function() {
-                                    window.location.href = 'index.php';
-                                }, 3000);
-                            </script>";
-                            return;
+                                // Parādīt veiksmīgas reģistrācijas paziņojumu
+                                echo "<div class='success-message'>Reģistrācija veiksmīga! Tiekat novirzīts uz sākumlapu...</div>";
+
+                                // Pāradresēt pēc 3 sekundēm
+                                echo "<script>
+                                    setTimeout(function() {
+                                        window.location.href = 'index.php';
+                                    }, 3000);
+                                </script>";
+                                return;
+                            } else {
+                                echo "Nevarēja ielādēt jauno lietotāju: " . mysqli_error($conn);
+                            }
                         } else {
                             echo "Nevarēja reģistrēties: " . mysqli_error($conn);
                         }

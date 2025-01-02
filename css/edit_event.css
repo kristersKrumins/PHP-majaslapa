@@ -1,4 +1,4 @@
-/* Basic styling for edit_event.php */
+/* Pamata stils edit_event.php */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f4fc;
@@ -27,7 +27,7 @@ main {
     border-radius: 8px;
 }
 
-/* Error message styling */
+/* Kļūdas ziņojuma stils */
 .error-message {
     background-color: #f44336;
     color: #fff;
@@ -37,7 +37,7 @@ main {
     text-align: center;
 }
 
-/* Form styling */
+/* Formas stils */
 form {
     display: flex;
     flex-direction: column;
@@ -59,7 +59,7 @@ input[type="file"] {
     font-size: 14px;
 }
 
-/* Age Range side-by-side with "LĪDZ" in between */
+/* Vecuma diapazons, blakus ar 'LĪDZ' pa vidu */
 .age-range {
     display: flex;
     align-items: center;

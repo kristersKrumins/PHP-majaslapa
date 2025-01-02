@@ -1,10 +1,10 @@
-/* General Styling */
+/* Vispārīgais stils */
 body {
     font-family: Arial, sans-serif;
     background-color: #f9f4ff;
     display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
+    justify-content: center; /* Centrē horizontāli */
+    align-items: center;     /* Centrē vertikāli */
     height: 100vh;
     margin: 0;
 }
@@ -17,9 +17,9 @@ body {
     width: 350px;
     text-align: center;
     display: flex;
-    flex-direction: column; /* Stack content vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically within the container */
+    flex-direction: column; /* Sakārtot saturu vertikāli */
+    align-items: center;    /* Centrēt elementus horizontāli */
+    justify-content: center;/* Centrēt elementus vertikāli konteinerā */
 }
 
 h2 {
@@ -27,16 +27,29 @@ h2 {
     margin-bottom: 20px;
 }
 
+/* Kļūdu ziņojuma stils */
+.error-message {
+    background-color: #f44336; /* vai #e53935 */
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    width: 100%; /* aizņem visu konteinera platumu */
+    text-align: center;
+    font-weight: bold;
+}
+
 label {
     display: block;
-    text-align: center; /* Centers the text in the label */
+    text-align: center; /* Centrēt tekstu iezīmē */
     margin-bottom: 5px;
     font-size: 14px;
     font-weight: bold;
-    width: 100%; /* Ensure labels span the width of the container */
+    width: 100%; /* Nodrošina, ka iezīmes aizņem konteinera platumu */
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"],
+input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;

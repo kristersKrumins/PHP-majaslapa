@@ -1,4 +1,4 @@
-/* General Body Styling */
+/* Vispārīgais lapas stila iestatījums */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,39 +6,38 @@ body {
     background-color: #f8f4fc;
 }
 
-/* Header Styling */
+/* Galvenes stils */
 header {
     text-align: center;
 }
 
-/* Top Bar Styling */
+/* Augšējā josla */
 .top-bar {
     background-color: #4e148c;
     color: #fff;
     display: flex;
-    align-items: center; /* Centers items vertically */
-    justify-content: space-between; /* Maintains space between logo and user info */
+    align-items: center;
+    justify-content: space-between;
     padding: 10px 20px;
-    min-height: 100px; /* Adjust to fit logo size */
+    min-height: 100px;
     position: relative;
-    overflow: visible; /* Ensures no clipping */
+    overflow: visible;
 }
 
 .top-bar .logo {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    max-height: 80px; /* Scale the logo height appropriately */
-    width: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensure the entire logo fits */
+    max-height: 80px;
+    width: auto;
+    object-fit: contain;
 }
-
 
 .top-bar .user-info {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center-align items horizontally */
-    gap: 5px; /* Add spacing between the button and the username */
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
     margin-left: auto;
 }
 
@@ -55,7 +54,7 @@ header {
     background-color: #ff80ab;
 }
 
-/* Logo Bar Styling */
+/* Logo josla */
 .logo-bar {
     background-color: #6a1b9a;
     padding: 20px;
@@ -67,7 +66,7 @@ header {
     font-size: 32px;
 }
 
-/* Main Navigation Bar */
+/* Galvenā navigācijas josla */
 .main-nav {
     background-color: #4e148c;
     padding: 10px 0;
@@ -88,7 +87,7 @@ header {
     font-weight: bold;
     font-size: 16px;
     position: relative;
-    padding: 5px 0; /* Add some spacing for the underline animation */
+    padding: 5px 0;
     transition: color 0.3s ease;
 }
 
@@ -96,41 +95,41 @@ header {
     color: #f0f0f0;
 }
 
-/* Add underline animation */
+/* Animēta līnija zem izvēlnes */
 .main-nav a::after {
     content: "";
     display: block;
     height: 2px;
     background-color: white;
-    width: 0; /* Start with no underline */
+    width: 0;
     position: absolute;
     bottom: 0;
     left: 0;
-    transition: width 0.3s ease; /* Smooth transition for the underline */
+    transition: width 0.3s ease;
 }
 
 .main-nav ul li a:hover::after {
-    width: 100%; /* Expand underline on hover */
+    width: 100%;
 }
 
-/* Highlight active link */
+/* Aktīvā saite */
 .main-nav a.active::after {
-    width: 100%; /* Keep underline for the active page */
+    width: 100%;
 }
 
-/* Contact Page Styling */
+/* Kartes sekcijas iestatījumi */
 .map-section iframe {
     border-radius: 10px;
     margin: 20px 0;
 }
 
-/* Rainbow Text Styling */
+/* Varavīksnes teksta stils */
 .rainbow-text {
     font-size: 20px;
     font-weight: bold;
     background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
     -webkit-background-clip: text;
-    background-clip: text; /* Standard property */
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
     margin-bottom: 10px;
@@ -138,7 +137,7 @@ header {
 
 .contact-info {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     align-items: center;
     padding: 20px;
     text-align: center;
@@ -149,7 +148,7 @@ header {
 
 .contact-left,
 .contact-right {
-    margin-bottom: 20px; /* Add spacing between sections */
+    margin-bottom: 20px;
 }
 
 .contact-left h2,
@@ -173,16 +172,16 @@ header {
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Increase the gap between icons */
+    gap: 20px;
     margin-top: 10px;
 }
 
 .social-icons a {
     text-decoration: none;
     color: white;
-    font-size: 25px; /* Increase the size of the icons */
-    width: 50px; /* Increase the width of the icons' container */
-    height: 50px; /* Increase the height of the icons' container */
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -190,11 +189,10 @@ header {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-
 .social-icons a:hover {
     background-color: #ff80ab;
     color: white;
-    transform: scale(1.1); /* Add a slight zoom effect on hover */
+    transform: scale(1.1);
 }
 
 .social-icons .fa-facebook-f {
@@ -209,7 +207,7 @@ header {
     background-color: #e4405f;
 }
 
-/* Success Banner */
+/* Veiksmes paziņojuma baneris */
 #success-banner {
     background-color: #d4edda;
     color: #155724;

@@ -1,4 +1,4 @@
-/* General Styling */
+/* Vispārīgais stils */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,34 +6,33 @@ body {
     background-color: #f8f4fc;
 }
 
-/* Top Bar Styling */
+/* Augšējās joslas stils */
 .top-bar {
     background-color: #4e148c;
     color: #fff;
     display: flex;
-    align-items: center; /* Centers items vertically */
-    justify-content: space-between; /* Maintains space between logo and user info */
+    align-items: center; /* Vertikāli centrē elementus */
+    justify-content: space-between; /* Uztur atstarpi starp logo un lietotāja informāciju */
     padding: 10px 20px;
-    min-height: 100px; /* Adjust to fit logo size */
+    min-height: 100px; /* Pielāgot, lai atbilstu logo lielumam */
     position: relative;
-    overflow: visible; /* Ensures no clipping */
+    overflow: visible; /* Nodrošina, ka nekas netiek apgriezts */
 }
 
 .top-bar .logo {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    max-height: 80px; /* Scale the logo height appropriately */
-    width: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensure the entire logo fits */
+    max-height: 80px; /* Pielāgot logo augstumu */
+    width: auto; /* Saglabāt proporcijas */
+    object-fit: contain; /* Nodrošina, ka viss logo ir redzams */
 }
-
 
 .top-bar .user-info {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center-align items horizontally */
-    gap: 5px; /* Add spacing between the button and the username */
+    flex-direction: column; /* Sakraut elementus vertikāli */
+    align-items: center; /* Horizontāli centrēt */
+    gap: 5px; /* Atstarpe starp pogu un lietotājvārdu */
     margin-left: auto;
 }
 
@@ -62,7 +61,7 @@ body {
     background-color: #ff80ab;
 }
 
-/* Logo Bar Styling */
+/* Logo joslas stils */
 .logo-bar {
     background-color: #6a1b9a;
     color: white;
@@ -76,7 +75,7 @@ body {
     text-transform: uppercase;
 }
 
-/* Navigation Bar Styling */
+/* Navigācijas josla */
 nav.main-nav {
     background-color: #4e148c;
     padding: 10px 0;
@@ -101,11 +100,11 @@ nav.main-nav ul li a {
     font-weight: bold;
     color: white;
     position: relative;
-    padding: 5px 0; /* Add space for underline animation */
+    padding: 5px 0; /* Papildu vieta animētai līnijai */
     transition: color 0.3s ease;
 }
 
-/* Hover underline animation */
+/* Peles animētā līnija (underline) */
 nav.main-nav ul li a::after {
     content: "";
     display: block;
@@ -115,24 +114,24 @@ nav.main-nav ul li a::after {
     position: absolute;
     bottom: 0;
     left: 0;
-    transition: width 0.3s ease; /* Smooth underline transition */
+    transition: width 0.3s ease; /* Gluda pāreja underline */
 }
 
 nav.main-nav ul li a:hover::after {
-    width: 100%; /* Expand underline on hover */
+    width: 100%; /* Paplašināt apakšsvītru peles virzīšanas laikā */
 }
 
 nav.main-nav ul li a.active::after {
-    width: 100%; /* Keep underline for active page */
+    width: 100%; /* Noturēt apakšsvītru aktīvajai lapai */
 }
 
-/* Active link styling */
+/* Aktīvās saites stils */
 nav.main-nav ul li a.active {
     color: #f0f0f0;
 }
 
 
-/* Gallery Section */
+/* Galerijas sadaļa */
 .gallery-container {
     display: flex;
     flex-wrap: wrap;
@@ -161,7 +160,7 @@ nav.main-nav ul li a.active {
     transform: scale(1.1);
 }
 
-/* Popup Styling */
+/* Uznirstošais logs (Popup) */
 #popup {
     display: none;
     position: fixed;
@@ -173,7 +172,7 @@ nav.main-nav ul li a.active {
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    flex-direction: column; /* Stack content vertically */
+    flex-direction: column; /* Sakārtot saturu vertikāli */
 }
 
 #popup img {

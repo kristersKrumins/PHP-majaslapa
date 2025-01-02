@@ -2,27 +2,27 @@
 session_start();
 require_once 'Database/config.php';
 
-// Check if the user is logged in
+// Pārbaudīt, vai lietotājs ir pieteicies
 $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 $username = $logged_in ? $_SESSION['username'] : null;
 
 if (!$logged_in) {
-    die("You must be logged in to edit a post. <a href='login.php'>Log in</a>");
+    die("Jums jābūt pieteikušamies, lai rediģētu ierakstu. <a href='login.php'>Pieslēgties</a>");
 }
 
-// Check if the post ID is provided
+// Pārbaudīt, vai ir norādīts ieraksta ID
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    die("No post ID provided. <a href='forums.php'>Go back</a>");
+    die("Nav norādīts ieraksta ID. <a href='forums.php'>Doties atpakaļ</a>");
 }
 
 $post_id = (int)$_GET['id'];
 
 try {
-    // Database connection
+    // Savienojums ar datu bāzi
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Fetch the post details
+    // Iegūstam ieraksta detaļas
     $stmt = $pdo->prepare("SELECT * FROM forum_posts WHERE id = :id");
     $stmt->execute([':id' => $post_id]);
     $post = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,12 +31,12 @@ try {
         die("Ierasksts nav atrasts. <a href='forums.php'>Doties atpakaļ</a>");
     }
 
-    // Ensure the logged-in user is the creator of the post
+    // Pārliecināmies, ka pieteicies lietotājs ir ieraksta autors
     if ($post['username'] !== $username) {
         die("Jums nav atļauja reģidēt šo rakstu. <a href='forums.php'>Iet atpakaļ</a>");
     }
 
-    // Handle post update
+    // Apstrādāt ieraksta labošanu
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $title = trim($_POST['title']);
         $content = trim($_POST['content']);
@@ -55,7 +55,7 @@ try {
         }
     }
 } catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
+    die("Datu bāzes kļūda: " . $e->getMessage());
 }
 ?>
 

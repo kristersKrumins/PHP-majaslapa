@@ -1,4 +1,4 @@
-/* General Reset */
+/* Vispārīgais atiestatījums */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@ body {
     background-color: #f8f4fc;
 }
 
-/* Top Bar */
+/* Augšējā josla */
 .top-bar {
     background-color: #4e148c;
     color: #fff;
@@ -32,7 +32,7 @@ body {
     object-fit: contain;
 }
 
-/* User Info on Right */
+/* Lietotāja info labajā pusē */
 .user-info {
     margin-left: auto;
     display: flex;
@@ -48,7 +48,7 @@ body {
     gap: 10px;
 }
 
-/* Logout/Login Buttons */
+/* Izrakstīšanās/Pierakstīšanās pogas */
 .logout-btn,
 .login-btn {
     padding: 8px 20px;
@@ -82,7 +82,7 @@ body {
     color: #fff;
 }
 
-/* Logo Bar */
+/* Logo josla */
 .logo-bar {
     background-color: #6a1b9a;
     color: #fff;
@@ -96,7 +96,7 @@ body {
     text-transform: uppercase;
 }
 
-/* Navigation */
+/* Navigācija */
 .main-nav {
     background-color: #4e148c;
     padding: 10px 0;
@@ -127,7 +127,7 @@ body {
     color: #f0f0f0;
 }
 
-/* Content Wrapper */
+/* Saturs */
 .content-wrapper {
     display: flex;
     flex-direction: row;
@@ -136,13 +136,13 @@ body {
     min-height: 500px;
 }
 
-/* Main Content */
+/* Galvenais saturs */
 .main-content {
     flex: 1;
     padding: 20px;
 }
 
-/* Sidebar */
+/* Sānu panelis */
 #sidebar {
     width: 300px;
     padding: 20px;
@@ -154,7 +154,7 @@ body {
     z-index: 9999;
 }
 
-/* Filter Form */
+/* Filtra forma */
 .filter-form form {
     display: flex;
     flex-direction: column;
@@ -216,14 +216,14 @@ body {
     cursor: pointer;
 }
 
-/* Age Inputs */
+/* Vecuma ievade */
 .age-inputs {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Main Heading */
+/* Galvenais virsraksts */
 .main-heading {
     display: flex;
     justify-content: center;
@@ -247,7 +247,7 @@ body {
     background-color: #81c784;
 }
 
-/* Event Grid */
+/* Pasākumu režģis */
 .event-grid {
     display: flex;
     flex-wrap: wrap;
@@ -296,7 +296,7 @@ body {
     margin: 15px 0;
 }
 
-/* Success Banner */
+/* Veiksmes paziņojums */
 #success-banner {
     transition: opacity 1s ease-out;
 }
@@ -310,7 +310,7 @@ body {
     text-align: center;
 }
 
-/* Footer */
+/* Kājene */
 footer {
     background-color: #4e148c;
     color: #fff;
@@ -319,7 +319,7 @@ footer {
     margin-top: 20px;
 }
 
-/* Notification Dropdown */
+/* Paziņojumu nolaižamais logs */
 .notification-container {
     position: relative;
     display: inline-block;
@@ -339,7 +339,7 @@ footer {
     font-size: 20px;
 }
 
-/* Red Dot */
+/* Sarkanā paziņojumu lapiņa (badge) */
 .badge {
     position: absolute;
     top: 0px;

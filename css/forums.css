@@ -1,4 +1,4 @@
-/* General Styling */
+/* Vispārīgais stils */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f4fc;
@@ -6,34 +6,33 @@ body {
     padding: 0;
 }
 
-/* Top Bar Styling */
+/* Augšējā josla */
 .top-bar {
     background-color: #4e148c;
     color: #fff;
     display: flex;
-    align-items: center; /* Centers items vertically */
-    justify-content: space-between; /* Maintains space between logo and user info */
+    align-items: center; /* Vertikāli centrē elementus */
+    justify-content: space-between; /* Uztur atstarpi starp logo un lietotāja informāciju */
     padding: 10px 20px;
-    min-height: 100px; /* Adjust to fit logo size */
+    min-height: 100px; /* Pielāgot, lai atbilstu logo lielumam */
     position: relative;
-    overflow: visible; /* Ensures no clipping */
+    overflow: visible; /* Nodrošina, ka nekas netiek apgriezts */
 }
 
 .top-bar .logo {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    max-height: 80px; /* Scale the logo height appropriately */
-    width: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensure the entire logo fits */
+    max-height: 80px; /* Pielāgot logo augstumu */
+    width: auto; /* Saglabāt proporcijas */
+    object-fit: contain; /* Nodrošina, ka viss logo ir redzams */
 }
-
 
 .top-bar .user-info {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center-align items horizontally */
-    gap: 5px; /* Add spacing between the button and the username */
+    flex-direction: column; /* Sakraut elementus vertikāli */
+    align-items: center; /* Horizontāli centrēt */
+    gap: 5px; /* Atstarpe starp pogu un lietotājvārdu */
     margin-left: auto;
 }
 
@@ -45,24 +44,33 @@ body {
 
 .logout-btn,
 .login-btn {
-    background-color: #ff4081;
-    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
-    padding: 8px 15px;
-    border-radius: 20px;
-    margin-left: 10px;
-    transition: background-color 0.3s ease;
     border: none;
     text-align: center;
+    transition: background-color 0.3s ease;
 }
 
-.logout-btn:hover,
-.login-btn:hover {
+.logout-btn {
+    background-color: #ff4081;
+}
+
+.logout-btn:hover {
     background-color: #ff80ab;
 }
 
-/* Logo Bar Styling */
+.login-btn {
+    background-color: #03df15;
+}
+
+.login-btn:hover {
+    background-color: #00ff15;
+}
+
+/* Logo josla */
 .logo-bar {
     background-color: #6a1b9a;
     color: white;
@@ -76,7 +84,7 @@ body {
     text-transform: uppercase;
 }
 
-/* Navigation Bar */
+/* Navigācijas josla */
 .main-nav {
     background-color: #4e148c;
     padding: 10px 0;
@@ -103,12 +111,12 @@ body {
     transition: color 0.3s ease;
 }
 
-/* Hover effects */
+/* Peles efekti */
 .main-nav ul li a:hover {
     color: #f0f0f0;
 }
 
-/* Hover underline animation */
+/* Peles animētā līnija */
 .main-nav ul li a::after {
     content: "";
     display: block;
@@ -129,12 +137,12 @@ body {
     width: 100%;
 }
 
-/* Active link styling */
+/* Aktīvās saites stils */
 .main-nav ul li a.active {
     color: #f0f0f0;
 }
 
-/* Main Content Styling */
+/* Galvenais saturs */
 main {
     max-width: 800px;
     margin: 20px auto;
@@ -144,7 +152,7 @@ main {
     padding: 20px;
 }
 
-/* Section Headings */
+/* Sadaļu virsraksti */
 .new-post-section h2,
 .posts-section h2 {
     font-size: 20px;
@@ -153,7 +161,7 @@ main {
     text-align: center;
 }
 
-/* Back Button Styling */
+/* Atpakaļ poga */
 .back-btn {
     display: inline-block;
     padding: 8px 12px;
@@ -170,7 +178,7 @@ main {
     background-color: #6a1b9a;
 }
 
-/* Form Styling */
+/* Formas stils */
 .new-post-form {
     display: flex;
     flex-direction: column;
@@ -206,7 +214,7 @@ main {
     background-color: #81c784;
 }
 
-/* Posts List Styling */
+/* Ierakstu saraksts */
 .posts-list {
     list-style: none;
     padding: 0;
@@ -219,7 +227,7 @@ main {
     border-radius: 5px;
 }
 
-/* Footer */
+/* Kājene */
 footer {
     background-color: #4e148c;
     color: white;
@@ -228,7 +236,7 @@ footer {
     margin-top: 20px;
 }
 
-/* Dropdown Button */
+/* Nolaižamās pogas */
 .dropdown-btn {
     background: none;
     border: none;
@@ -237,7 +245,7 @@ footer {
     color: #757575;
 }
 
-/* Dropdown Menu */
+/* Nolaižamā izvēlne */
 .dropdown-menu {
     position: absolute;
     top: 30px;
@@ -283,11 +291,10 @@ footer {
     font-family: inherit;
 }
 
-/* Post Header */
+/* Ieraksta galvene */
 .post-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
 }
-

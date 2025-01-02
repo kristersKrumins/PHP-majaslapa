@@ -1,4 +1,4 @@
-/* General Reset */
+/* Vispārīgais atiestatījums */
 * {
     margin: 0;
     padding: 0;
@@ -7,27 +7,27 @@
 
 body {
     font-family: 'Outfit', sans-serif;
-    background-color: #f8f4fc; /* Light purple background */
+    background-color: #f8f4fc; /* Gaiši violets fons */
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full-screen height for centering */
+    height: 100vh; /* Pilnekrāna augstums centrēšanai */
 }
 
-/* Signup Container */
+/* Reģistrācijas konteiners */
 .signup-container {
     width: 100%;
     max-width: 400px;
-    background-color: #fff; /* White background for form */
+    background-color: #fff; /* Balts fons formai */
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Smalka ēna */
     padding: 30px;
-    text-align: center; /* Center all text inside the container */
+    text-align: center; /* Centrēt visu tekstu konteinera iekšienē */
 }
 
 .signup-container h1 {
     font-size: 24px;
-    color: #4e148c; /* Purple text color */
+    color: #4e148c; /* Violeta teksta krāsa */
     margin-bottom: 10px;
 }
 
@@ -38,23 +38,23 @@ body {
     margin: 10px 0 20px;
 }
 
-/* Form Styling */
+/* Formas stils */
 .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between form elements */
+    gap: 20px; /* Atstarpe starp formas elementiem */
 }
 
 .signup-form label {
     font-size: 16px;
     font-weight: bold;
-    color: #4e148c; /* Purple text color */
+    color: #4e148c; /* Violeta teksta krāsa */
     text-align: left;
-    width: 100%; /* Align labels with inputs */
+    width: 100%; /* Izlīdzināt iezīmes ar ievadlaukiem */
 }
 
 .signup-form input {
-    width: 100%; /* Full width inside the container */
+    width: 100%; /* Pilna platuma konteinerā */
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -64,20 +64,20 @@ body {
 }
 
 .signup-form input:focus {
-    border-color: #4e148c; /* Highlight on focus */
+    border-color: #4e148c; /* Iezīmēt fokusu */
 }
 
-/* Submit Button */
+/* Poga Iesniegt */
 .signupbtn {
     margin-top: 20px;
 }
 
 .signupbtn button {
-    width: 100%; /* Full width */
+    width: 100%; /* Pilna platuma */
     padding: 12px;
     font-size: 16px;
     font-weight: bold;
-    background-color: #4caf50; /* Green button */
+    background-color: #4caf50; /* Zaļa poga */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -86,30 +86,30 @@ body {
 }
 
 .signupbtn button:hover {
-    background-color: #81c784; /* Lighter green on hover */
+    background-color: #81c784; /* Gaišāka zaļā uz hover */
 }
 
-/* Notification Section */
+/* Paziņojumu sadaļa */
 .notification {
     margin-top: 20px;
     font-size: 14px;
     color: red;
 }
 
-/* Success Message */
+/* Veiksmīga paziņojuma stils */
 .success-message {
     font-size: 18px;
     font-weight: bold;
     color: #fff;
     text-align: center;
-    background-color: #4caf50; /* Green background */
+    background-color: #4caf50; /* Zaļš fons */
     padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Smalka ēna */
     position: fixed;
-    top: 10%; /* Position at the top center */
+    top: 10%; /* Novietot ekrāna augšpusē, centrā */
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    transition: opacity 1s ease; /* Smooth fade-out transition */
+    transition: opacity 1s ease; /* Vienmērīga izbalēšanas pāreja */
 }

@@ -13,6 +13,17 @@ require './Database/db.php';
 <body>
     <div class="login-container">
         <h2>Pieslēgties</h2>
+        
+        <!-- Parādīt kļūdu ziņojumus, ja tie ir iestatīti -->
+        <?php if (isset($_SESSION['login_error'])): ?>
+            <div class="error-message">
+                <?php 
+                    echo htmlspecialchars($_SESSION['login_error']);
+                    unset($_SESSION['login_error']); // noņemt to, lai tas nepastāv ilgstoši
+                ?>
+            </div>
+        <?php endif; ?>
+
         <form action="login.php" method="POST">
             <label for="username">Lietotājvārds:</label>
             <input type="text" id="username" name="username" placeholder="Lietotājvārds" required>
@@ -34,31 +45,41 @@ require './Database/db.php';
             $username = $_POST["username"];
             $password = $_POST["password"];
 
-            // SQL query to fetch username, password, and admin status
+            // SQL vaicājums, lai iegūtu lietotājvārdu, paroli un admin statusu
             $sql = "SELECT * FROM USERS WHERE USERNAME='$username'";
             $result = mysqli_query($conn, $sql);
 
             if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
 
-                // Verify password
+                // Pārbaudīt paroli
                 if (password_verify($password, $row["password"])) {
-                    // Set session variables
+                    // Iestatīt sesijas mainīgos
                     $_SESSION['logged_in'] = true;
-                    $_SESSION['username'] = $username;
-                    $_SESSION['admin'] = (int)$row['admin']; // Fetch and store admin value
-                    $_SESSION['user_id'] = $row['id'];
-;
-                    // Redirect to the index page
+                    $_SESSION['username']  = $username;
+                    $_SESSION['admin']    = (int)$row['admin']; // Iegūt un saglabāt admin vērtību
+                    $_SESSION['user_id']  = $row['id'];
+
+                    // Pāradresēt uz sākumlapu
                     header('Location: index.php');
+                    exit;
                 } else {
-                    echo "<p style='color: red; text-align: center;'>Parole ir nepareiza</p>";
+                    // Nepareiza parole
+                    $_SESSION['login_error'] = "Nepareiza parole.";
+                    header("Location: login.php");
+                    exit;
                 }
             } else {
-                echo "<p style='color: red; text-align: center;'>Lietotājvārds vai parole ir nepareiza</p>";
+                // Lietotājs nav atrasts
+                $_SESSION['login_error'] = "Lietotājvārds vai parole ir nepareiza.";
+                header("Location: login.php");
+                exit;
             }
         } else {
-            echo "<p style='color: red; text-align: center;'>Lūdzu ievadiet lietotājvārdu vai paroli</p>";
+            // Nav ievadīts lietotājvārds vai parole
+            $_SESSION['login_error'] = "Lūdzu ievadiet lietotājvārdu un paroli.";
+            header("Location: login.php");
+            exit;
         }
     }
     ?>

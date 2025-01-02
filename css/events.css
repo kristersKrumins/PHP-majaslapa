@@ -1,4 +1,4 @@
-/* General Styling */
+/* Vispārējie stila iestatījumi */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f4fc;
@@ -28,7 +28,7 @@ main {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Event Details */
+/* Pasākuma detaļas */
 .event-details {
     text-align: center;
 }
@@ -46,7 +46,7 @@ main {
     margin-bottom: 20px;
 }
 
-/* Image Slider */
+/* Attēlu slīdrāde */
 .image-slider {
     position: relative;
     text-align: center;
@@ -88,7 +88,7 @@ main {
     right: 10px;
 }
 
-/* Slider Dots */
+/* Slīdrādes punkti */
 .slider-dots {
     text-align: center;
     margin-top: 10px;
@@ -109,7 +109,7 @@ main {
     background-color: #4e148c;
 }
 
-/* Buttons Row */
+/* Pogas rindā */
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -160,7 +160,7 @@ main {
     background-color: #ff80ab;
 }
 
-/* Reviews Section */
+/* Atsauksmju sadaļa */
 .reviews-section {
     margin-top: 30px;
     padding: 20px;
@@ -174,12 +174,12 @@ main {
     text-align: center;
 }
 
-/* Interactive Stars for Review Submission */
+/* Interaktīvās zvaigznes atsauksmes iesniegšanai */
 .star-rating {
     display: flex;
-    justify-content: center; /* Centered for interactive stars */
+    justify-content: center;
     margin: 15px 0;
-    gap: 5px; /* Space between stars */
+    gap: 5px;
 }
 
 .star-rating .star {
@@ -191,38 +191,38 @@ main {
 
 .star-rating .star.selected {
     color: #fbc02d;
-    transform: scale(1.2); /* Slight zoom on selection */
+    transform: scale(1.2);
 }
 
 .star-rating .star:hover {
     color: #fbc02d;
-    transform: scale(1.1); /* Slight zoom on hover */
+    transform: scale(1.1);
 }
 
 .star-rating .star:hover ~ .star {
     color: #ccc;
 }
 
-/* View-Only Stars for Submitted Reviews */
+/* Tikai skatāmas zvaigznes iesniegtajām atsauksmēm */
 .submitted-stars {
     display: flex;
-    justify-content: left; /* Align stars to the left */
-    gap: 3px; /* Space between stars */
+    justify-content: left;
+    gap: 3px;
 }
 
 .submitted-stars .star.view-only {
-    font-size: 30px; /* Smaller size for submitted reviews */
-    color: #ccc; /* Default gray */
+    font-size: 30px;
+    color: #ccc;
     margin-right: 3px;
-    pointer-events: none; /* Disable interactivity */
+    pointer-events: none;
 }
 
 .submitted-stars .star.view-only.selected,
 .submitted-stars .fa-star-half-o.view-only.selected {
-    color: #fbc02d; /* Yellow for selected stars */
+    color: #fbc02d;
 }
 
-/* Review Form */
+/* Atsauksmes forma */
 .review-form textarea {
     width: 100%;
     max-width: 800px;
@@ -272,7 +272,7 @@ main {
     font-size: 14px;
 }
 
-/* Join Button */
+/* Pieteikties poga */
 .join-btn {
     background-color: #03df15;
     color: #fff;
@@ -283,14 +283,14 @@ main {
     cursor: pointer;
     text-decoration: none;
     font-size: 14px;
-    margin-left: 10px; /* Some space if needed */
+    margin-left: 10px;
 }
 
 .join-btn:hover {
     background-color: #00ff15;
 }
 
-/* Disabled states (can't click) */
+/* Atspējoti stāvokļi (nav iespējams klikšķināt) */
 .join-btn.disabled {
     background-color: #ccc;
     color: #666;

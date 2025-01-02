@@ -1,4 +1,4 @@
-/* General Styling */
+/* Vispārīgais lapas stils */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f4fc;
@@ -28,7 +28,7 @@ main {
     padding: 20px;
 }
 
-/* Post Header Section */
+/* Sadaļa ar ieraksta virsrakstu */
 .post-header {
     margin-bottom: 20px;
     text-align: center;
@@ -41,7 +41,7 @@ main {
     transform: translateY(-50%);
     text-decoration: none;
     color: white;
-    background-color: #4e148c;
+    background-color: #6a1b9a;
     padding: 8px 12px;
     border-radius: 5px;
     font-size: 14px;
@@ -50,7 +50,7 @@ main {
 }
 
 .post-header .back-btn:hover {
-    background-color: #6a1b9a;
+    background-color: #4e148c;
 }
 
 .post-title {
@@ -61,7 +61,7 @@ main {
     text-align: center;
 }
 
-/* Post Details */
+/* Ieraksta detaļas */
 .post-details {
     text-align: center;
     border-bottom: 1px solid #ddd;
@@ -80,7 +80,7 @@ main {
     font-size: 14px;
 }
 
-/* Reply Form */
+/* Forma atbildei */
 .reply-form {
     margin-bottom: 30px;
     display: flex;
@@ -115,8 +115,8 @@ main {
     background-color: #81c784;
 }
 
-/* Replies Section */
-.replies-section h2{
+/* Sadaļa ar atbildēm */
+.replies-section h2 {
     text-align: center;
     color: #4e148c;
 }
@@ -145,14 +145,14 @@ main {
     color: #757575;
 }
 
-/* Error Message */
+/* Kļūdas ziņojums */
 .error {
     color: red;
     font-size: 14px;
     text-align: center;
 }
 
-/* Login Prompt */
+/* Pieslēgšanās paziņojums */
 .login-prompt {
     text-align: center;
     font-size: 14px;

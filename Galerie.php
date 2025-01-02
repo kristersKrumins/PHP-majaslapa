@@ -1,20 +1,24 @@
 <?php
 session_start();
 
-$mainFolder = 'images/'; // Path to the main images folder
-$folders = glob($mainFolder . 'event_*'); // Dynamically fetch all event folders
+// Ceļš uz galveno attēlu mapi
+$mainFolder = 'images/'; 
+// Dinamiski iegūt visas pasākumu mapes
+$folders = glob($mainFolder . 'event_*'); 
 $images = [];
 
-// Loop through each folder and collect all image paths
+// Ciklam iziet cauri katrai mapei un savākt visus attēlu ceļus
 foreach ($folders as $folder) {
     if (is_dir($folder)) {
         $folderImages = glob($folder . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-        $images = array_merge($images, $folderImages); // Merge images from all folders
+        // Apvienot attēlus no visām mapēm
+        $images = array_merge($images, $folderImages); 
     }
 }
 
+// Rezerves variants gadījumā, ja nav neviena attēla
 if (!$images) {
-    $images = []; // Fallback in case there are no images
+    $images = []; 
 }
 ?>
 
@@ -28,21 +32,21 @@ if (!$images) {
 </head>
 <body>
     <header>
-        <!-- Top Bar -->
+        <!-- Augšējā josla -->
         <div class="top-bar">
-            <img src="images/logo.png" alt="Website Logo" class="logo">
+            <img src="images/logo.png" alt="Vietnes logo" class="logo">
         </div>
     </div>
 
-        <!-- Logo Bar -->
+        <!-- Logo josla -->
         <div class="logo-bar">
             <h1>Galerija</h1>
         </div>
 
-        <!-- Navigation Bar -->
+        <!-- Navigācijas josla -->
         <nav class="main-nav">
             <ul>
-                <li><a href="index.php">Home</a></li>
+                <li><a href="index.php">Sākums</a></li>
                 <li><a href="forums.php">Forums</a></li>
                 <li><a href="Galerie.php">Galerija</a></li>
                 <li><a href="contact.php">Kontakti</a></li>
@@ -55,53 +59,55 @@ if (!$images) {
             <?php
             foreach ($images as $index => $image) {
                 echo '<div class="gallery-item">';
-                echo "<img src='$image' alt='Event Image' onclick='openPopup($index)'>";
+                echo "<img src='$image' alt='Pasākuma attēls' onclick='openPopup($index)'>";
                 echo '</div>';
             }
             ?>
         </div>
     </main>
 
-    <!-- Popup Overlay -->
+    <!-- Uznirstošais pārklājums (Popup Overlay) -->
     <div class="popup-overlay" id="popup">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <span class="nav-btn left" onclick="navigate(-1)">&#10094;</span>
-        <img id="popup-img" src="" alt="Popup Image">
+        <img id="popup-img" src="" alt="Uznirstošais attēls">
         <span class="nav-btn right" onclick="navigate(1)">&#10095;</span>
         <div class="photo-number" id="photo-number"></div>
     </div>
 
     <script>
-        const images = <?php echo json_encode($images); ?>; // Pass PHP array to JavaScript
+        // Pārsūtīt PHP masīvu uz JavaScript
+        const images = <?php echo json_encode($images); ?>; 
         let currentIndex = 0;
 
-        // Open Popup
+        // Atvērt uznirstošo logu
         function openPopup(index) {
             const popup = document.getElementById('popup');
             const popupImg = document.getElementById('popup-img');
             const photoNumber = document.getElementById('photo-number');
             currentIndex = index;
             popupImg.src = images[currentIndex];
-            photoNumber.textContent = `${currentIndex + 1} / ${images.length}`; // Set photo number
-            popup.style.display = 'flex'; // Show the popup
+            photoNumber.textContent = `${currentIndex + 1} / ${images.length}`; // Iestatīt foto numuru
+            popup.style.display = 'flex'; // Parādīt uznirstošo logu
         }
 
-        // Close Popup
+        // Aizvērt uznirstošo logu
         function closePopup() {
             const popup = document.getElementById('popup');
-            popup.style.display = 'none'; // Hide the popup
+            popup.style.display = 'none'; // Paslēpt uznirstošo logu
         }
 
-        // Navigate Images
+        // Navigēt pa attēliem
         function navigate(direction) {
             const popupImg = document.getElementById('popup-img');
             const photoNumber = document.getElementById('photo-number');
-            currentIndex = (currentIndex + direction + images.length) % images.length; // Wrap around
+            // Apgriezienā, ja sasniedzam sākumu vai beigas
+            currentIndex = (currentIndex + direction + images.length) % images.length; 
             popupImg.src = images[currentIndex];
-            photoNumber.textContent = `${currentIndex + 1} / ${images.length}`; // Update photo number
+            photoNumber.textContent = `${currentIndex + 1} / ${images.length}`; // Atjaunināt foto numuru
         }
 
-        // Close Popup when clicking outside the image
+        // Aizvērt uznirstošo logu, ja noklikšķina ārpus attēla
         document.getElementById('popup').addEventListener('click', (event) => {
             if (event.target.id === 'popup') {
                 closePopup();

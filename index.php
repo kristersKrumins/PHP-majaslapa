@@ -2,13 +2,13 @@
 session_start();
 require_once 'Database/config.php';
 
-// Check session
+// Pārbaudīt sesiju
 $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 $username  = $logged_in ? $_SESSION['username'] : null;
 $admin     = isset($_SESSION['admin']) ? (int)$_SESSION['admin'] : 0;
 $user_id   = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 
-// Handle logout
+// Apstrādāt izrakstīšanos
 if (isset($_GET['logout'])) {
     session_destroy();
     session_unset();
@@ -16,20 +16,20 @@ if (isset($_GET['logout'])) {
     exit;
 }
 
-// DB connect
+// Savienojums ar DB
 try {
     $pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die("DB error: " . $e->getMessage());
+    die("DB kļūda: " . $e->getMessage());
 }
 
 /************************************************************
- * (1) ADMIN ACCEPT/REJECT => sets status
+ * (1) ADMIN ACCEPT/REJECT => iestata statusu
  ************************************************************/
 if ($logged_in && $admin === 1 && isset($_GET['notif_id']) && isset($_GET['action'])) {
     $notif_id = (int)$_GET['notif_id'];
-    $action   = $_GET['action']; // 'accept' or 'reject'
+    $action   = $_GET['action']; // 'accept' vai 'reject'
 
     if ($action === 'accept') {
         $stm = $pdo->prepare("
@@ -55,7 +55,7 @@ if ($logged_in && $admin === 1 && isset($_GET['notif_id']) && isset($_GET['actio
 }
 
 /************************************************************
- * (2) FETCH NOTIFICATIONS
+ * (2) IEGŪT PAZIŅOJUMUS
  ************************************************************/
 $notifications = [];
 $unseenCount   = 0;
@@ -63,7 +63,7 @@ $unseenCount   = 0;
 if ($logged_in) {
     try {
         if ($admin === 1) {
-            // Admin sees all
+            // Admin redz visus
             $sql = "
                 SELECT n.*,
                        u.username   AS requestor_name,
@@ -83,7 +83,7 @@ if ($logged_in) {
                 }
             }
         } else {
-            // Regular user => only own notifications
+            // Parasts lietotājs => tikai savus paziņojumus
             $sql = "
                 SELECT n.*,
                        u.username   AS requestor_name,
@@ -105,23 +105,23 @@ if ($logged_in) {
             }
         }
     } catch (PDOException $e) {
-        die("Notifications fetch error: " . $e->getMessage());
+        die("Paziņojumu iegūšanas kļūda: " . $e->getMessage());
     }
 }
 
 /************************************************************
- * (3) FETCH EVENTS + FILTERS
+ * (3) IEGŪT PASĀKUMUS + FILTRI
  ************************************************************/
 $query  = "SELECT * FROM events WHERE 1=1";
 $params = [];
 
-// Name
+// Nosaukums
 if (!empty($_GET['name'])) {
     $query .= " AND NOSAUKUMS LIKE :n";
     $params[':n'] = '%'.$_GET['name'].'%';
 }
 
-// Price (ignore negative => treat it as 0 if user typed negative)
+// Cena (ignorēt negatīvu => uztvert kā 0, ja lietotājs ievada negatīvu)
 if (isset($_GET['price'])) {
     $price = (float)$_GET['price'];
     if ($price > 0) {
@@ -130,7 +130,7 @@ if (isset($_GET['price'])) {
     }
 }
 
-// Age (ignore negative => treat them as 0)
+// Vecums (ignorēt negatīvu => uztvert kā 0)
 $minAge = isset($_GET['min_age']) ? (int)$_GET['min_age'] : 0;
 $maxAge = isset($_GET['max_age']) ? (int)$_GET['max_age'] : 0;
 
@@ -149,7 +149,7 @@ if ($minAge > 0 && $maxAge > 0) {
     $params[':maxAge'] = $maxAge;
 }
 
-// Gender
+// Dzimums
 if (!empty($_GET['gender']) && is_array($_GET['gender'])) {
     $phArr = [];
     foreach ($_GET['gender'] as $i => $g) {
@@ -163,7 +163,7 @@ if (!empty($_GET['gender']) && is_array($_GET['gender'])) {
     }
 }
 
-// Category
+// Kategorija
 if (!empty($_GET['category']) && is_array($_GET['category'])) {
     $catArr = [];
     foreach ($_GET['category'] as $i => $cat) {
@@ -177,26 +177,26 @@ if (!empty($_GET['category']) && is_array($_GET['category'])) {
     }
 }
 
-// Exec
+// Izpilde
 try {
     $stm2 = $pdo->prepare($query);
     $stm2->execute($params);
     $events = $stm2->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Events fetch error: " . $e->getMessage());
+    die("Pasākumu iegūšanas kļūda: " . $e->getMessage());
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Children's Event Hosting</title>
+    <title>Labākie bērnu pasākumi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Success banner fade-out
+        // Veiksmes ziņojuma izlidošana
         const sb = document.getElementById('success-banner');
         if (sb) {
             setTimeout(() => {
@@ -210,7 +210,7 @@ try {
             }, 5000);
         }
 
-        // Toggle notification dropdown
+        // Pārslēgt paziņojumu nolaižamo logu
         const notifBtn = document.getElementById('notification-btn');
         const notifDrop= document.getElementById('notification-dropdown');
         
@@ -220,7 +220,7 @@ try {
             notifBtn.addEventListener('click', () => {
                 notifDrop.classList.toggle('show');
                 
-                // If not admin => mark user's notifications as seen
+                // Ja nav administrators => atzīmēt lietotāja paziņojumus kā redzētus
                 if (!isAdmin) {
                     fetch('mark_seen_user.php')
                       .then(response => response.json())
@@ -261,19 +261,19 @@ try {
                                 <?php endif; ?>
                             </button>
                             <div id="notification-dropdown" class="notification-dropdown">
-                                <h4>Notifications</h4>
+                                <h4>Paziņojumi</h4>
                                 <hr>
                                 <?php if (empty($notifications)): ?>
                                     <p>No notifications</p>
                                 <?php else: ?>
                                     <?php foreach ($notifications as $nt): ?>
                                         <?php
-                                        $eventName = $nt['event_name'] ?? 'unknown event';
-                                        $userName  = $nt['requestor_name'] ?? 'unknown user';
+                                        $eventName = $nt['event_name'] ?? 'nezināms pasākums';
+                                        $userName  = $nt['requestor_name'] ?? 'nezināms lietotājs';
                                         $status    = $nt['status'];
                                         $nid       = $nt['id'];
 
-                                        // Latvian status
+                                        // Latvisks statuss
                                         $lvStatus = 'Statuss: Noliegts';
                                         if ($status === 'pending') {
                                             $lvStatus = 'Statuss: Apstrādā';
@@ -315,22 +315,22 @@ try {
                                 <?php endif; ?>
                             </div>
                         </div>
-                        <a href="index.php?logout=1" class="logout-btn">Logout</a>
+                        <a href="index.php?logout=1" class="logout-btn">Izrakstīties</a>
                     </div>
-                    <span>User: <?php echo htmlspecialchars($username); ?></span>
+                    <span>Lietotājs: <?php echo htmlspecialchars($username); ?></span>
                 </div>
             <?php else: ?>
                 <div class="user-info" style="margin-left:auto;">
-                    <a href="login.php" class="login-btn">Login</a>
+                    <a href="login.php" class="login-btn">Pierakstīties</a>
                 </div>
             <?php endif; ?>
         </div>
         <div class="logo-bar">
-            <h1>Children's Event Hosting</h1>
+            <h1>Bērnu pasākumi</h1>
         </div>
         <nav class="main-nav">
             <ul>
-                <li><a href="index.php">Home</a></li>
+                <li><a href="index.php">Sākumlapa</a></li>
                 <li><a href="forums.php">Forums</a></li>
                 <li><a href="Galerie.php">Galerija</a></li>
                 <li><a href="contact.php">Kontakti</a></li>
@@ -356,7 +356,7 @@ try {
                 <?php endif; ?>
             </div>
 
-            <!-- Event Grid -->
+            <!-- Pasākumu režģis -->
             <?php if (!empty($events)): ?>
             <div class="event-grid">
                 <?php foreach ($events as $ev): ?>
@@ -385,7 +385,7 @@ try {
             <?php endif; ?>
         </div>
 
-        <!-- SIDEBAR Filter -->
+        <!-- Sānu panelis (FILTER) -->
         <div id="sidebar">
             <div class="filter-form">
                 <form method="GET" action="index.php">
@@ -401,11 +401,12 @@ try {
 
                     <div>
                         <label>Vecuma diapazons:</label>
+                         
                         <div class="age-inputs">
                             <label for="min-age">Min:</label>
-                            <input type="number" id="min-age" name="min_age" placeholder="Min Age">
+                            <input type="number" id="min-age" name="min_age" placeholder="Min Vecums">
                             <label for="max-age">Max:</label>
-                            <input type="number" id="max-age" name="max_age" placeholder="Max Age">
+                            <input type="number" id="max-age" name="max_age" placeholder="Max Vecums">
                         </div>
                     </div>
 
@@ -472,7 +473,7 @@ try {
     </main>
 
     <footer>
-        <p>&copy; 2024 Children's Event Hosting</p>
+        <p>&copy; 2025 Bērnu pasākumu rīkošana</p>
     </footer>
 </body>
 </html>

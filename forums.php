@@ -7,40 +7,40 @@ if (isset($_GET['logout'])) {
     header("Location: forums.php");
     exit;
 }
-// Check if the user is logged in
+// Pārbaudīt, vai lietotājs ir pieteicies
 $logged_in = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 $username  = $logged_in ? $_SESSION['username'] : null;
-// If you track admin status
+// Ja izsekojat administratora statusu
 $admin     = isset($_SESSION['admin']) ? (int)$_SESSION['admin'] : 0;
 
 try {
-    // Database connection
+    // Savienojums ar datu bāzi
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Handle post deletion
+    // Apstrādāt ieraksta dzēšanu
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post']) && $logged_in) {
         $post_id_to_delete = (int)$_POST['delete_post'];
 
-        // Fetch the post's username to check ownership
+        // Iegūt ieraksta lietotājvārdu, lai pārbaudītu īpašumtiesības
         $stmt = $pdo->prepare("SELECT username FROM forum_posts WHERE id = :id");
         $stmt->execute([':id' => $post_id_to_delete]);
         $post = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($post) {
-            // Check if the user is the post's author OR an admin
+            // Pārbaudīt, vai lietotājs ir ieraksta autors VAI administrators
             if ($post['username'] === $username || $admin === 1) {
                 $stmt = $pdo->prepare("DELETE FROM forum_posts WHERE id = :id");
                 $stmt->execute([':id' => $post_id_to_delete]);
                 header("Location: forums.php");
                 exit;
             } else {
-                $error = "You are not authorized to delete this post.";
+                $error = "Jums nav atļauts dzēst šo ierakstu.";
             }
         }
     }
 
-    // Handle new post submission
+    // Apstrādāt jaunu ierakstu izveidi
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title']) && isset($_POST['content']) && $logged_in) {
         $title   = trim($_POST['title']);
         $content = trim($_POST['content']);
@@ -58,16 +58,16 @@ try {
             header("Location: forums.php");
             exit;
         } else {
-            $error = "Title and content cannot be empty.";
+            $error = "Virsraksts un saturs nedrīkst būt tukšs.";
         }
     }
 
-    // Fetch all posts
+    // Iegūt visus ierakstus
     $stmt = $pdo->query("SELECT * FROM forum_posts ORDER BY created_at DESC");
     $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
+    die("Datu bāzes kļūda: " . $e->getMessage());
 }
 ?>
 
@@ -80,7 +80,7 @@ try {
     <link rel="stylesheet" href="css/forums.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Toggle dropdown menu
+            // Pārslēgt nolaižamo izvēlni
             document.querySelectorAll('.dropdown-btn').forEach(btn => {
                 btn.addEventListener('click', (event) => {
                     event.stopPropagation();
@@ -89,7 +89,7 @@ try {
                 });
             });
 
-            // Close dropdown menu on outside click
+            // Aizvērt nolaižamo izvēlni, ja noklikšķina ārpus tās
             document.addEventListener('click', () => {
                 document.querySelectorAll('.dropdown-menu').forEach(menu => {
                     menu.classList.remove('show');
@@ -100,25 +100,25 @@ try {
 </head>
 <body>
     <header>
-        <!-- Top Bar -->
+        <!-- Augšējā josla -->
         <div class="top-bar">
             <img src="images/logo.png" alt="Website Logo" class="logo">
             <div class="user-info">
                 <?php if ($logged_in): ?>
-                    <a href="forums.php?logout=1" class="logout-btn">Logout</a>
-                    <span>User: <?php echo htmlspecialchars($username); ?></span>
+                    <a href="forums.php?logout=1" class="logout-btn">Izrakstīties</a>
+                    <span>Lietotājs: <?php echo htmlspecialchars($username); ?></span>
                 <?php else: ?>
-                    <a href="login.php" class="login-btn">Login</a>
+                    <a href="login.php" class="login-btn">Pierakstīties</a>
                 <?php endif; ?>
             </div>
         </div>
 
-        <!-- Logo Bar -->
+        <!-- Logo josla -->
         <div class="logo-bar">
             <h1>Forums</h1>
         </div>
 
-        <!-- Navigation Bar -->
+        <!-- Navigācijas josla -->
         <nav class="main-nav">
             <ul>
                 <li><a href="index.php">Home</a></li>
@@ -161,7 +161,7 @@ try {
                                     </a>
                                 </h3>
                                 <?php
-                                // Show the dropdown only if logged in AND user is the author or admin
+                                // Rādīt nolaižamo izvēlni tikai, ja lietotājs ir pieteicies UN lietotājs ir autors vai administrators
                                 if ($logged_in && ($admin === 1 || $post['username'] === $username)) {
                                     ?>
                                     <div class="dropdown">
@@ -176,7 +176,7 @@ try {
                                     </div>
                                 <?php } ?>
                             </div>
-                            <!-- Optionally show post excerpt or content snippet here if you'd like -->
+                            <!-- Ja vēlaties, šeit var parādīt ieraksta fragmentu vai kopsavilkumu -->
                         </li>
                     <?php endforeach; ?>
                 </ul>

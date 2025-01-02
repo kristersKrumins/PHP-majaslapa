@@ -2,47 +2,47 @@
 session_start();
 require_once 'Database/config.php';
 
-// Enable error reporting for debugging (remove in production if you wish)
+// Iespējot kļūdu paziņošanu atkļūdošanai (noņemiet ražošanā, ja vēlaties)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// 1) Check admin
+// 1) Pārbaudīt administratora statusu
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true || $_SESSION['admin'] != 1) {
-    die("Access denied. <a href='index.php'>Go back</a>");
+    die("Piekļuve liegta. <a href='index.php'>Doties atpakaļ</a>");
 }
 
-// 2) Check event ID
+// 2) Pārbaudīt pasākuma ID
 if (!isset($_GET['id'])) {
-    die("No event ID provided. <a href='index.php'>Go back</a>");
+    die("Nav norādīts pasākuma ID. <a href='index.php'>Doties atpakaļ</a>");
 }
 $event_id = (int)$_GET['id'];
 
 try {
-    // 3) DB connection
+    // 3) Savienojums ar datu bāzi
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 4) Fetch event
+    // 4) Iegūstam pasākumu
     $stmt = $pdo->prepare("SELECT * FROM events WHERE ID = :id");
     $stmt->execute([':id' => $event_id]);
     $event = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$event) {
-        die("Event not found. <a href='index.php'>Go back</a>");
+        die("Pasākums nav atrasts. <a href='index.php'>Doties atpakaļ</a>");
     }
 
-    // Ensure folder for images
+    // Pārliecināmies, ka eksistē attēlu mape
     $eventFolder = 'images/event_' . $event_id . '/';
     if (!is_dir($eventFolder)) {
         mkdir($eventFolder, 0777, true);
     }
 
 } catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
+    die("Datu bāzes kļūda: " . $e->getMessage());
 }
 
-// 5) Handle form submission
+// 5) Apstrādā formu
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title       = $_POST['title'];
     $description = $_POST['description'];
@@ -52,65 +52,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gender      = $_POST['gender'];
     $category    = $_POST['category'];
 
-    // Optional new image
+    // Neobligāts jaunais attēls
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
         $imageNewName = uniqid('event_', true) . '.' . $ext;
         $imageDestination = $eventFolder . $imageNewName;
 
-        // Move the uploaded file
+        // Pārvieto augšupielādēto failu
         if (!is_writable($eventFolder)) {
-            $errorMessage = "Upload folder is not writable.";
+            $errorMessage = "Augšupielādes mape nav rakstāma.";
         } else {
             if (move_uploaded_file($_FILES['image']['tmp_name'], $imageDestination)) {
-                // Remove old image if it exists
+                // Noņem veco attēlu, ja tas eksistē
                 if (!empty($event['BILDE'])) {
                     $oldImage = $eventFolder . $event['BILDE'];
                     if (file_exists($oldImage)) {
                         unlink($oldImage);
                     }
                 }
-                // Update in $event array for usage
+                // Atjaunina $event masīvā lietošanai
                 $event['BILDE'] = $imageNewName;
             } else {
-                $errorMessage = "Failed to move uploaded file. Check folder permissions.";
+                $errorMessage = "Neizdevās pārvietot augšupielādēto failu. Pārbaudiet mapes atļaujas.";
             }
         }
     } elseif (isset($_FILES['image']) && $_FILES['image']['error'] !== UPLOAD_ERR_NO_FILE) {
-        // Some file error
+        // Kāda kļūda faila augšupielādē
         switch ($_FILES['image']['error']) {
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
-                $errorMessage = "The uploaded file exceeds the allowed size.";
+                $errorMessage = "Augšupielādētais fails pārsniedz atļauto lielumu.";
                 break;
             case UPLOAD_ERR_PARTIAL:
-                $errorMessage = "The file was only partially uploaded.";
+                $errorMessage = "Fails tika tikai daļēji augšupielādēts.";
                 break;
             default:
-                $errorMessage = "Unknown error uploading file.";
+                $errorMessage = "Nezināma kļūda, augšupielādējot failu.";
         }
     }
 
-    // 6) Update database if no error
+    // 6) Atjaunina datu bāzi, ja nav kļūdu
     if (!isset($errorMessage)) {
         try {
             $updateStmt = $pdo->prepare("
                 UPDATE events
-                   SET NOSAUKUMS = :title,
-                       APRAKSTS = :description,
-                       CENA     = :price,
-                       BILDE    = :image,
-                       VECUMS   = :age_min,
-                       VECUMS2  = :age_max,
-                       DZIMUMS  = :gender,
+                   SET NOSAUKUMS   = :title,
+                       APRAKSTS   = :description,
+                       CENA       = :price,
+                       BILDE      = :image,
+                       VECUMS     = :age_min,
+                       VECUMS2    = :age_max,
+                       DZIMUMS    = :gender,
                        KATEGORIJA = :category
-                 WHERE ID       = :id
+                 WHERE ID         = :id
             ");
             $updateStmt->execute([
                 ':title'       => $title,
                 ':description' => $description,
                 ':price'       => $price,
-                ':image'       => $event['BILDE'], // newly updated image name if any
+                ':image'       => $event['BILDE'], // jaunais atjauninātais attēla nosaukums, ja tāds ir
                 ':age_min'     => $age_min,
                 ':age_max'     => $age_max,
                 ':gender'      => $gender,
@@ -118,12 +118,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ':id'          => $event_id
             ]);
 
-            // 7) Redirect to event page
+            // 7) Pāradresē uz pasākuma lapu
             header("Location: events.php?id=$event_id&success=1");
             exit;
 
         } catch (PDOException $e) {
-            $errorMessage = "Error updating event: " . $e->getMessage();
+            $errorMessage = "Kļūda atjauninot pasākumu: " . $e->getMessage();
         }
     }
 }
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label for="category">Kategorija:</label>
             <div class="category-options">
-                <!-- Check each radio if it matches existing category -->
+                <!-- Pārbaudīt katru radio, vai tas atbilst esošai kategorijai -->
                 <input type="radio" id="Maģija" name="category" value="Maģija"
                        <?php if ($event['KATEGORIJA'] === 'Maģija') echo 'checked'; ?>>
                 <label for="Maģija">Maģija</label>

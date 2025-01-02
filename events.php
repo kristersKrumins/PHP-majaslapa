@@ -3,7 +3,7 @@ session_start();
 require_once 'Database/config.php';
 
 if (!isset($_GET['id'])) {
-    die("No event ID provided. <a href='index.php'>Go back</a>");
+    die("Nav norādīts pasākuma ID. <a href='index.php'>Doties atpakaļ</a>");
 }
 
 $event_id = (int)$_GET['id'];
@@ -13,56 +13,56 @@ $username = $logged_in ? $_SESSION['username'] : null;
 $user_id = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 
 try {
-    // Connect to DB
+    // Savienoties ar datu bāzi
     $pdo = new PDO("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // 1) Fetch event details
+    // 1) Iegūt pasākuma detaļas
     $stmt = $pdo->prepare("SELECT * FROM events WHERE ID = :id");
     $stmt->execute([':id' => $event_id]);
     $event = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$event) {
-        die("Event not found. <a href='index.php'>Go back</a>");
+        die("Pasākums nav atrasts. <a href='index.php'>Doties atpakaļ</a>");
     }
 
-    // 2) Gather event images
+    // 2) Apkopot pasākuma attēlus
     $eventFolder = 'images/event_' . $event_id . '/';
     $images = glob($eventFolder . '*');
 
-    // 3) If admin posted 'Delete Event'
+    // 3) Ja administrators publicējis 'Dzēst pasākumu'
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete']) && $admin) {
         try {
-            // Delete the event row
+            // Dzēst pasākuma rindu
             $delete_stmt = $pdo->prepare("DELETE FROM events WHERE ID = :id");
             $delete_stmt->execute([':id' => $event_id]);
 
-            // Delete associated images
+            // Dzēst saistītos attēlus
             foreach ($images as $image) {
                 if (file_exists($image)) {
                     unlink($image);
                 }
             }
-            // Remove the folder if empty
+            // Noņemt mapi, ja tā ir tukša
             if (is_dir($eventFolder)) {
                 @rmdir($eventFolder);
             }
 
-            // Redirect after deletion
+            // Pāradresēt pēc dzēšanas
             header("Location: index.php?success=2");
             exit;
         } catch (PDOException $e) {
-            die("Error deleting event: " . $e->getMessage());
+            die("Kļūda dzēšot pasākumu: " . $e->getMessage());
         }
     }
 
-    // 4) Handle "Pieteikties" (join) request for a non-admin user
+    // 4) Apstrādāt "Pieteikties" pieprasījumu ne-administratoram
     if ($_SERVER['REQUEST_METHOD'] === 'POST'
         && isset($_POST['join_event'])
         && $logged_in
         && !$admin
     ) {
-        // Check if this user already has a pending request for this event
+        // Pārbaudīt, vai šim lietotājam jau ir gaidošs pieprasījums uz šo pasākumu
         $check = $pdo->prepare("
             SELECT *
               FROM notifications
@@ -76,10 +76,10 @@ try {
         ]);
         $existingPending = $check->fetch();
 
-        // If no existing pending => create new row
+        // Ja nav esoša gaidošā pieprasījuma => izveidot jaunu rindu
         if (!$existingPending) {
             $message = "Lietotājs '$username' vēlas pieteikties uz pasākumu: {$event['NOSAUKUMS']}";
-            // Insert with seen_by_user=0, seen_by_admin=0
+            // Ievietot ar seen_by_user=0, seen_by_admin=0
             $ins = $pdo->prepare("
                 INSERT INTO notifications (
                     user_id, event_id, message, status,
@@ -98,12 +98,12 @@ try {
                 ':msg' => $message
             ]);
         }
-        // Redirect back
+        // Pāradresēt atpakaļ
         header("Location: events.php?id=$event_id");
         exit;
     }
 
-    // 5) For a logged-in non-admin, check if they have any request for this event
+    // 5) Pieslēgušamies lietotājam, kurš nav administrators, pārbaudīt, vai ir kāds pieprasījums uz šo pasākumu
     $existingRequest = null;
     if ($logged_in && !$admin) {
         $req_stmt = $pdo->prepare("
@@ -121,7 +121,7 @@ try {
         $existingRequest = $req_stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // 6) Handle review submission
+    // 6) Apstrādāt atsauksmes iesniegšanu
     if ($_SERVER['REQUEST_METHOD'] === 'POST'
         && isset($_POST['review'])
         && $logged_in
@@ -147,11 +147,11 @@ try {
             header("Location: events.php?id=$event_id");
             exit;
         } else {
-            $error = "Please provide a valid rating and comment.";
+            $error = "Lūdzu norādiet derīgu reitingu un komentāru.";
         }
     }
 
-    // 7) Fetch reviews
+    // 7) Iegūt atsauksmes
     $review_stmt = $pdo->prepare("
         SELECT *
           FROM ATSAUKSMES
@@ -162,10 +162,9 @@ try {
     $reviews = $review_stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
-    die("Database error: " . $e->getMessage());
+    die("Datu bāzes kļūda: " . $e->getMessage());
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,13 +172,13 @@ try {
     <title><?php echo htmlspecialchars($event['NOSAUKUMS']); ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/events.css">
-    <!-- Optional: Font Awesome for stars -->
+    <!-- Neobligāti: Font Awesome zvaigznītēm -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Photo Slider
+        // Foto slīdrāde
         const images = document.querySelectorAll('.image-slider img');
         const dots = document.querySelectorAll('.slider-dots span');
         const arrowLeft = document.querySelector('.arrow-left');
@@ -214,22 +213,22 @@ try {
 
         showImage(currentIndex);
 
-        // Star rating
+        // Zvaigžņu reitings
         const stars = document.querySelectorAll('.star-rating .star');
         const ratingInput = document.getElementById('rating-input');
 
         stars.forEach((star, index) => {
-            // Hover
+            // Norāde
             star.addEventListener('mouseover', () => {
                 stars.forEach((s, i) => {
                     s.classList.toggle('hovered', i <= index);
                 });
             });
-            // Mouseleave
+            // Peles kursors iziet
             star.addEventListener('mouseleave', () => {
                 stars.forEach((s) => s.classList.remove('hovered'));
             });
-            // Click => set rating
+            // Klikšķis => iestatīt reitingu
             star.addEventListener('click', () => {
                 const rating = index + 1;
                 ratingInput.value = rating;
@@ -244,17 +243,17 @@ try {
 <body>
     <header></header>
     <main>
-        <!-- Event Details -->
+        <!-- Pasākuma detaļas -->
         <div class="event-details">
-            <!-- Image Slider -->
+            <!-- Attēlu slīdrāde -->
             <div class="image-slider">
                 <span class="arrow-left">❮</span>
                 <?php if (!empty($images)): ?>
                     <?php foreach ($images as $image): ?>
-                        <img src="<?php echo $image; ?>" alt="Event Image">
+                        <img src="<?php echo $image; ?>" alt="Pasākuma attēls">
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <p>No images available for this event.</p>
+                    <p>Nav pieejamu attēlu šim pasākumam.</p>
                 <?php endif; ?>
                 <span class="arrow-right">❯</span>
             </div>
@@ -284,35 +283,35 @@ try {
             <p><?php echo htmlspecialchars($event['KATEGORIJA']); ?></p>
 
             <div class="action-buttons">
-                <!-- Back button -->
+                <!-- Poga 'Atpakaļ' -->
                 <a href="index.php" class="back-btn">Atpakaļ</a>
 
                 <?php if ($logged_in && $admin === 1): ?>
-                    <!-- Edit event -->
+                    <!-- Rediģēt pasākumu -->
                     <a href="edit_event.php?id=<?php echo htmlspecialchars($event['id']); ?>" class="edit-btn">Rediģēt</a>
-                    <!-- Delete event -->
+                    <!-- Dzēst pasākumu -->
                     <form method="post" class="delete-form">
                         <button type="submit" name="delete" class="delete-btn">Dzēst pasākumu</button>
                     </form>
                 <?php else: ?>
-                    <!-- Non-admin "Join" button logic -->
+                    <!-- Ne-administratora pieteikšanās poga -->
                     <?php if ($logged_in && !$admin): ?>
                         <?php
-                        // If user has a request for this event
+                        // Ja lietotājam ir pieprasījums uz šo pasākumu
                         if ($existingRequest) {
-                            // Show Latvian statuses for the user
+                            // Parādīt latviešu statusus lietotājam
                             if ($existingRequest['status'] === 'pending') {
-                                // "Gaida atbildi (Apstrādā)"
+                                // Gaida atbildi (Apstrādā)
                                 echo '<button class="join-btn disabled" disabled>Gaida atbildi (Apstrādā)</button>';
                             } elseif ($existingRequest['status'] === 'accepted') {
-                                // "Apstiprināts"
+                                // Apstiprināts
                                 echo '<button class="join-btn accepted" disabled>Apstiprināts</button>';
                             } elseif ($existingRequest['status'] === 'rejected') {
-                                // "Noliegts"
+                                // Noliegts
                                 echo '<button class="join-btn rejected" disabled>Noliegts</button>';
                             }
                         } else {
-                            // No request => show "Pieteikties"
+                            // Nav pieprasījuma => rādīt 'Pieteikties'
                             echo '
                             <form method="post" style="display:inline;">
                                 <button type="submit" name="join_event" class="join-btn">
@@ -327,11 +326,11 @@ try {
             </div>
         </div>
 
-        <!-- Reviews Section -->
+        <!-- Atsauksmju sadaļa -->
         <section class="reviews-section">
             <h3>Atsauksmes</h3>
             <?php if ($logged_in): ?>
-                <!-- Review Form -->
+                <!-- Atsauksmes forma -->
                 <form method="post" class="review-form">
                     <div class="star-rating">
                         <?php for ($i = 0; $i < 5; $i++): ?>

@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Sazinies ar mums</title>
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
-        <!-- Top Section -->
+        <!-- Augšējā sadaļa -->
         <div class="top-bar">
             <img src="images/logo.png" alt="Website Logo" class="logo">
-       
-    </div>
+        </div>
         <div class="logo-bar">
             <h1>KONTAKTI</h1>
         </div>
@@ -27,7 +26,7 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- Galvenais saturs -->
     <main>
         <section class="map-section">
             <iframe
@@ -43,11 +42,14 @@
 
         <section class="contact-info">
             <div class="contact-left">
-                <h2>Children's Event Hosting</h2>
+                <h2>Bērnu pasākumu veidotāji</h2>
                 <p>Zunda krastmala 10</p>
                 <p>Kurzemes rajons, Rīga</p>
                 <p>LV-1048</p>
                 <p>Latvija</p>
+                <br>
+                <p>Tālr.: +371 12345678</p>
+                <p>Epasts: Pasākumi@piemers.lv</p>
             </div>
             <div class="contact-right">
                 <h2 class="rainbow-text">PIESEKO MUMS</h2>
