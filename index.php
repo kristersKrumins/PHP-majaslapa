@@ -472,8 +472,6 @@ try {
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Bērnu pasākumu rīkošana</p>
-    </footer>
+    
 </body>
 </html>

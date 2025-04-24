@@ -18,7 +18,7 @@
         </div>
         <nav class="main-nav">
             <ul>
-                <li><a href="index.php">Home</a></li>
+                <li><a href="index.php">Sākumlapa</a></li>
                 <li><a href="forums.php">Forums</a></li>
                 <li><a href="Galerie.php">Galerija</a></li>
                 <li><a href="contact.php">Kontakti</a></li>

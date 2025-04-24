@@ -46,7 +46,7 @@ if (!$images) {
         <!-- Navigācijas josla -->
         <nav class="main-nav">
             <ul>
-                <li><a href="index.php">Sākums</a></li>
+                <li><a href="index.php">Sākumlapa</a></li>
                 <li><a href="forums.php">Forums</a></li>
                 <li><a href="Galerie.php">Galerija</a></li>
                 <li><a href="contact.php">Kontakti</a></li>
